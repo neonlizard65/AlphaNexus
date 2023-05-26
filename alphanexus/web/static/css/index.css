@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+@function set-text-color($color){
+    @if(lightness($color) > 70){
+        @return $tertiary-color;
+    }
+    @else{
+        @return $text-color;
+    }
+}
+*/
+.btn-secondary, .btn-primary {
+  border-radius: 10px;
+  padding: 8px 20px;
+  margin: 3px;
+  box-shadow: 0px 0px 5px 10px;
+  transition: all 0.5s ease-in-out;
+}
+.btn-secondary:hover, .btn-primary:hover {
+  transform: scale(0.9);
+}
+
+.btn-primary {
+  background-color: #4507ff;
+}
+
+.btn-secondary {
+  background-color: #282828;
+}/*# sourceMappingURL=index.css.map */

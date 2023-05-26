@@ -1,0 +1,38 @@
+$primary-color: #3500D3;
+$secondary-color: #282828;
+$tertiary-color: #0C0032;
+$fourth-color: #190061;
+$fifth-color: #240090;
+$text-color: white;
+
+$font-weights: (
+    "regular": 400,
+    "medium": 500,
+    "bold": 700
+);
+
+$mobile: 800px;
+
+$font-sizes: (
+    "small": 0.8em,
+    "regular": 1em,
+    "large": 1.2em,
+    "xl": 1.5em
+);
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+@function set-text-color($color){
+    @if(lightness($color) > 70){
+        @return $tertiary-color;
+    }
+    @else{
+        @return $text-color;
+    }
+}
+*/

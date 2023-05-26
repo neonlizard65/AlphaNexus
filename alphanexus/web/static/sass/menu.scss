@@ -1,0 +1,43 @@
+@import "mixins";
+@import "config";
+@import "buttons";
+
+.nav{
+    @include flexCenter(row);
+
+    @include mobile{
+        @include flexCenter(column);
+    }
+
+    .logo{
+        width: 100px;
+        height: 100px;
+    }
+
+    .info{
+        font-size: map-get($font-sizes, "large");
+        width: 20vw;
+    }
+
+    .menu{
+        @include flexCenter(row);
+
+        @include mobile{
+            @include flexCenter(column);
+        }
+    }
+
+    .panel{
+
+        &-btn{
+            
+            &:hover{
+
+            }
+
+           
+        }
+    }
+
+
+}

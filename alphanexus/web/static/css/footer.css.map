@@ -1,0 +1,1 @@
+{"version":3,"sources":["../sass/_config.scss","footer.css","../sass/_buttons.scss","../sass/_mixins.scss"],"names":[],"mappings":"AAsBA;EACI,sBAAA;EACA,SAAA;EACA,UAAA;ACrBJ;;ADwBA;;;;;;;;;CAAA;AE1BA;EACI,mBAAA;EACA,iBAAA;EACA,WAAA;EACA,4BAAA;ECEA,gCAAA;AFcJ;ACZI;EACI,qBAAA;ADcR;;ACVA;EAEI,yBAAA;ADYJ;;ACRA;EAEI,yBFtBc;ACgClB","file":"footer.css"}
