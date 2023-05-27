@@ -1,38 +1,38 @@
 $primary-color: #3500D3;
 $secondary-color: #282828;
-$tertiary-color: #0C0032;
-$fourth-color: #190061;
-$fifth-color: #240090;
+$tertiary-color: #fc6471;
+$fourth-color: #d1ac00;
 $text-color: white;
 
 $font-weights: (
     "regular": 400,
     "medium": 500,
-    "bold": 700
+    "bold": 600
 );
 
-$mobile: 800px;
+$mobile: 1000px;
 
 $font-sizes: (
     "small": 0.8em,
     "regular": 1em,
     "large": 1.2em,
-    "xl": 1.5em
+    "xl": 1.5em,
+    "xxl": 2em
 );
 
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
-/*
+
 @function set-text-color($color){
     @if(lightness($color) > 70){
-        @return $tertiary-color;
+        @return $secondary-color;
     }
     @else{
         @return $text-color;
     }
 }
-*/

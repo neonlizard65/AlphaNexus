@@ -1,3 +1,25 @@
-@import "mixins";
-@import "config";
-@import "buttons";
+@import "base";
+
+
+.carousel-block{
+    .carousel{
+        box-shadow: 0px 4px 10px 1px black;
+        width: 66%;
+        margin: auto;
+        background-color: $secondary-color;
+        img{
+            object-fit: cover;
+            height: 66vh;
+        }
+    }
+    
+}
+
+.additional{
+    @include flexCenter(column);
+    color: set-text-color($secondary-color);
+    margin: 35px;
+    p{
+        font-size: map-get($font-sizes, "xl");
+    }
+}

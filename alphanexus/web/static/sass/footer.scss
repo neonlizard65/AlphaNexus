@@ -1,3 +1,44 @@
-@import "mixins";
-@import "config";
-@import "buttons";
+@import "base";
+
+footer{
+    min-height: 10vh;
+    background-color: $secondary-color;
+    color: set-text-color($secondary-color);
+    font-size: map-get($font-sizes, "small");
+
+    @include flexCenter(row);
+
+    .logo{
+        @include flexCenter(row);
+        width: 10%;
+        margin: 0px 20px;
+        img{
+            width: 100px;
+            height: 50px;
+    
+            @include mobile{
+                width: 50px;
+                height: 25px;
+            }
+        }
+    }
+
+    .middle{
+        @include flexCenter(column);
+        .pages{
+            @include flexCenter(row);
+            .page{
+                margin: 10px;
+                a{
+                    font-size: map-get($font-sizes, "large");
+                    text-decoration: none;
+                    color: set-text-color($secondary-color);
+                    &:hover{
+                        font-weight: map-get($font-weights, "bold");    
+                    }
+                }
+            }
+        }
+    }
+}
+

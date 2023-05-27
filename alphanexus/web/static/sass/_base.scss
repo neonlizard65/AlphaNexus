@@ -1,0 +1,19 @@
+@import "config";
+@import "mixins";
+@import "buttons";
+@import "cards";
+
+/*html::-webkit-scrollbar{
+    display: none;
+}*/
+
+body{
+    color: set-text-color(white);
+    font-weight: map-get($font-weights, "regular");
+}
+
+.content{
+    background-color: darken($secondary-color, 10%);
+    min-height: 80vh;
+    padding: 20px;
+}

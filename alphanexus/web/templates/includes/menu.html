@@ -1,17 +1,56 @@
+{% load static %}
+
 <nav>
     <div class="logo">
-
+        <a href="/">
+            <img src="{% static 'res/logo.svg' %}" alt="alpha">
+        </a>
     </div>
-    <div class="info">
-        Платформа для распространения цифровых продуктов
-    </div>
-    <div class="menu">
-        
+    <div class="middle">
+        <div class="info">
+            Создаем будущее вместе с Вами!
+        </div>
+        <div class="menu">
+            {% if user.is_authenticated %}
+            <div class="menu-item btn-primary">
+                <a href="">Библиотека</a>
+            </div>
+            {% endif %} 
+            <div class="menu-item btn-primary">
+                <a href="">Библиотека</a>
+            </div>
+            <div class="menu-item btn-primary">
+                <a href="">Магазин</a>
+            </div>
+            <div class="menu-item btn-primary">
+                <a href="">О платформе</a>
+            </div>
+            <div class="menu-item btn-primary">
+                <a href="">Разработчикам</a>
+            </div>
+        </div>
     </div>
     <div class="panel">
-        <div class="panel-btn">Login</div>
-        <div class="panel-btn">Register</div>
-        <div class="panel-btn">Wishlist</div>
-        <div class="panel-btn">Cart</div>
+        <div class="panel-btn">
+            <a href="login" id="login">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </a>
+        </div>
+        <div class="panel-btn">
+            <a href="register" id="register">
+                <i class="fa-solid fa-user-plus"></i>
+            </a>
+        </div>
+        <div class="panel-btn">
+            <a href="wishlist" id="wishlist">
+                <i class="fa-solid fa-heart"></i>
+            </a>
+            
+        </div>
+        <div class="panel-btn">
+            <a href="cart" id="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+        </div>
     </div>
 </nav>

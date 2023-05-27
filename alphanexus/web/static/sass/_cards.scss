@@ -1,0 +1,68 @@
+.cards{
+    position: relative;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+    .card{
+        @include flexCenter(column);
+        @include fadeTransition;
+        box-shadow: 0px 4px 10px 1px black;
+        margin: auto;
+        width: 300px;
+        height: 500px;
+        background-color: darken($secondary-color, 5%);
+        color: set-text-color($secondary-color);
+        border-radius: 10px;
+        img{
+            margin-top: 5px;
+            border-radius: 10px;
+            width: 90%;
+            height: 70%;
+        }
+        &-title{
+            font-size: map-get($font-sizes, "xl");
+            flex-grow: 1;
+        }
+
+        &-price{
+            font-weight: map-get($font-weights, "bold");
+        }
+
+        &:hover{
+            background-color: $secondary-color;
+            cursor: pointer;
+        }
+
+        .btns{
+            @include flexCenter(row);
+
+            .icon{
+                margin: 10px;
+                font-size: map-get($font-sizes, "xxl");
+                @include fadeTransition;
+                a{
+                    @include fadeTransition(0.5s);
+                    color: white;
+                }
+
+                &:hover{
+                    transform: scale(0.9);
+                }
+
+                .icon-wish{
+                    &:hover{
+                        color: $tertiary-color;
+                    }
+                }
+                .icon-cart{
+                    &:hover{
+                        color: $fourth-color;
+                    }
+                }
+                
+            }
+        }
+    }
+
+}

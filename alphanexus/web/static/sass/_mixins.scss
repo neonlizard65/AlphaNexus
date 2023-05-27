@@ -5,12 +5,18 @@
     flex-direction: $direction;
 }
 
-@mixin fadeTransition{
-    transition: all 0.5s ease-in-out;
+@mixin fadeTransition($length: 0.3s){
+    transition: all $length ease-in-out;
 }
 
 @mixin mobile{
     @media (max-width: $mobile){
+        @content
+    }
+};
+
+@mixin adaptive($size){
+    @media (max-width: $size){
         @content
     }
 }
