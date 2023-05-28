@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Изменение пользователя{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/cabinet.css' %}">
+{% endblock styles %}
+
+{% block content %}
+{% if user.background %}
+    <img class="bg" src="/media/{{user.background}}" alt="">
+{% endif %}
+<div class="cabinet">
+    <div class="bg-block">
+        <div class="avatar-block">
+            {% if user.avatar %}
+            <img src="/media/{{user.avatar}}" alt="">
+            {% else %}
+            <img src="{% static 'res/placeholder.png' %}" alt="Аватар">
+            {% endif %}
+            <h1>{{user.username}}</h1>
+            <p>{{user.first_name}} {{user.last_name}}</p>
+            <a href="change_user" class="btn-primary">Изменить уч. запись</a>
+        </div>
+        {% if user.is_private %}
+        <p>Пользователь скрыл свой профиль.</p>
+        {% else %}
+        <div class="bio">
+            <p>{{user.bio}}</p>
+        </div>
+        <div class=""></div>
+        {% endif %}
+    </div>
+    <div class="game-block">
+
+    </div>
+</div>
+
+{% endblock content %}

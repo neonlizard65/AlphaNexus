@@ -8,12 +8,12 @@
 }*/
 
 body{
-    color: set-text-color(white);
+    color: set-text-color($secondary-color);
     font-weight: map-get($font-weights, "regular");
 }
 
 .content{
     background-color: darken($secondary-color, 10%);
-    min-height: 80vh;
+    min-height: 82vh;
     padding: 20px;
 }

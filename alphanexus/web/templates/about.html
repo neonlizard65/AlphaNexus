@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Главная страница{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock styles%}
+
+{% block content %}
+<div class="above">
+    <h1>
+       Лучшая платформа инди-проектов в России
+    </h1>
+    <p>
+        <span>Мы</span>
+        <span>помогаем</span>
+        <span>отечественным</span>
+        <span>разработчикам</span>
+        <span>распространять</span>
+        <span>свои</span>
+        <span>проекты!</span><br><br>
+        <span>Хотите</span>
+        <span>опубликовать</span>
+        <span>свою</span>
+        <span>игру?</span><br><br>
+    </p>
+</div>
+<a href="" class="btn-primary vid-btn">Опубликовать</a>
+<video autoplay loop muted plays-inline>
+    <source src="{% static 'res/trailer.mp4' %}" type="video/mp4" >
+</video>
+{% endblock content %}

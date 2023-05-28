@@ -8,14 +8,15 @@
 .btn-secondary, .btn-primary {
   position: relative;
   border-radius: 10px;
-  padding: 10px 0px;
-  width: 175px;
+  padding: 10px;
+  min-width: 175px;
   height: 45px;
   text-align: center;
   font-weight: 500;
   font-size: 1.2em;
   color: white;
   text-decoration: none;
+  border: none;
   transition: all 0.3s ease-in-out;
 }
 .btn-secondary:hover, .btn-primary:hover {
@@ -111,19 +112,20 @@
     display: none;
 }*/
 body {
-  color: #282828;
+  color: white;
   font-weight: 400;
 }
 
 .content {
   background-color: #0f0f0f;
-  min-height: 80vh;
+  min-height: 82vh;
   padding: 20px;
 }
 
 nav {
   background-color: #282828;
   color: white;
+  min-height: 125px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,7 +141,16 @@ nav {
 }
 nav .logo {
   margin: 10px 30px;
+  line-height: 1.5;
   transition: all 0.5s ease-in-out;
+  width: 200px;
+  height: 100px;
+}
+@media (max-width: 1000px) {
+  nav .logo {
+    width: 100px;
+    height: 50px;
+  }
 }
 nav .logo:hover {
   transform: scale(0.97);
@@ -164,6 +175,7 @@ nav .middle {
 }
 nav .middle .info {
   font-size: 2em;
+  line-height: 1.5;
   font-weight: 500;
   text-align: center;
 }
@@ -232,4 +244,7 @@ nav .panel-btn:hover #wishlist {
 }
 nav .panel-btn:hover #cart {
   color: #d1ac00;
+}
+nav .panel-btn:hover #logout {
+  color: red;
 }/*# sourceMappingURL=menu.css.map */

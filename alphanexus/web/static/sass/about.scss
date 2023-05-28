@@ -1,0 +1,87 @@
+@import "base";
+
+span {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(4px);
+}
+
+@keyframes scale {
+    66%{
+        filter: blur(0);
+        opacity: 1;
+        opacity: 0.8;
+
+    }
+    100% {
+        transform: scale(1);   
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    100% {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@for $i from 1 through 100{
+
+    span:nth-child(#{$i}) {
+        animation-delay: 4s;
+        animation: fade-in 0.8s #{calc((calc($i + 20)/10))}s forwards cubic-bezier(0.11, 0, 0.5, 0);
+    }
+}
+
+
+
+.content{
+    position: relative;
+    z-index: 1;
+    @include flexCenter(column);
+
+    .above{
+        h1 {
+            color: $text-color;
+            line-height: 2;
+            text-align: center;
+            transform: scale(0.8);
+            opacity: 0;
+            filter: blur(4px);
+            font-size: map-get($font-sizes, "xxxl");
+            font-weight: map-get($font-weights, "regular");
+            animation: scale 2s forwards cubic-bezier(0.5, 1, 0.89, 1);
+        
+        }
+        
+        p{
+            color: $text-color;
+            text-align: center;
+            font-size: map-get($font-sizes, "xl");
+        }
+    
+    }
+}
+
+.vid-btn{
+    
+    opacity: 0;
+    animation: fade-in 0.8s 4.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+video{
+    position: absolute;
+    object-fit: fill;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0.7;
+    z-index: -1;
+
+    @include mobile{
+        display: none;
+    }
+}

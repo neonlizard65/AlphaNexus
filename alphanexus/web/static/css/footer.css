@@ -8,14 +8,15 @@
 .btn-secondary, .btn-primary {
   position: relative;
   border-radius: 10px;
-  padding: 10px 0px;
-  width: 175px;
+  padding: 10px;
+  min-width: 175px;
   height: 45px;
   text-align: center;
   font-weight: 500;
   font-size: 1.2em;
   color: white;
   text-decoration: none;
+  border: none;
   transition: all 0.3s ease-in-out;
 }
 .btn-secondary:hover, .btn-primary:hover {
@@ -111,13 +112,13 @@
     display: none;
 }*/
 body {
-  color: #282828;
+  color: white;
   font-weight: 400;
 }
 
 .content {
   background-color: #0f0f0f;
-  min-height: 80vh;
+  min-height: 82vh;
   padding: 20px;
 }
 

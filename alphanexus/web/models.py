@@ -4,12 +4,13 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 
 class Developer(models.Model):
-    name = models.CharField(verbose_name="Название")
-    logo = models.ImageField(verbose_name="Логотип")
+    name = models.CharField(verbose_name="Название", unique=True)
+    logo = models.ImageField(verbose_name="Логотип", blank = True, null = True)
     requisites = models.CharField(verbose_name="Номер счета")
     email = models.EmailField(verbose_name="Почта")
     youtube = models.CharField(verbose_name="Канал на Youtube", blank = True, null = True)
-    bio = models.TextField(verbose_name="Доп. информация")
+    bio = models.TextField(verbose_name="Доп. информация", blank = True, null = True)
+    creator = models.ForeignKey('CustomUser', verbose_name="Создатель", on_delete=models.CASCADE, related_name="developer_creator", blank = True, null = True, default=None)
     
     class Meta:
         verbose_name = "Компания"
@@ -25,8 +26,6 @@ class Developer(models.Model):
 class Country(models.Model):
     name = models.CharField(verbose_name="Название")
     code = models.CharField(verbose_name="Код", max_length=3)
-    flag = models.ImageField(verbose_name="Флаг", blank=True, null = True)
-    region = models.CharField(verbose_name="Регион")
     
     class Meta:
         verbose_name = "Страна"
@@ -53,7 +52,7 @@ class Tag(models.Model):
     
 class Product(models.Model):
     name = models.CharField(verbose_name="Название")
-    release = models.DateField(verbose_name="Дата выхода")
+    release = models.DateField(verbose_name="Дата выхода", default=now)
     developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE)
     bio = models.TextField(verbose_name="Доп. информация")
     tags = models.ManyToManyField(Tag, verbose_name="Теги")
@@ -69,15 +68,16 @@ class Product(models.Model):
         return f"{self.name} ({self.release.year})"
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(verbose_name="Почта")
+    email = models.EmailField(verbose_name="Почта", unique=True)
     phone = models.CharField(verbose_name="Телефон")
-    avatar = models.ImageField(verbose_name="Аватар")
-    background = models.ImageField(verbose_name="Фон")
-    is_private = models.BooleanField(verbose_name="Закрытый профиль")
-    bio = models.TextField(verbose_name="Доп. информация")
-    developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE)
-    wishlist = models.ManyToManyField(Product, verbose_name="Список желаемых", related_name="wishlist")
-    cart = models.ManyToManyField(Product, verbose_name="Корзина", related_name="cart")
+    avatar = models.ImageField(verbose_name="Аватар", blank = True, null = True, default=None)
+    background = models.ImageField(verbose_name="Фон", blank = True, null = True, default=None)
+    is_private = models.BooleanField(verbose_name="Закрытый профиль", null=True, blank=True)
+    country = models.ForeignKey(Country, verbose_name="Страна", on_delete=models.CASCADE, blank=True, null=True, default=None)
+    bio = models.TextField(verbose_name="Доп. информация", blank = True, null = True, default=None)
+    developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE, null=True, blank=True)
+    wishlist = models.ManyToManyField(Product, verbose_name="Список желаемых", related_name="wishlist", blank = True, default=None)
+    cart = models.ManyToManyField(Product, verbose_name="Корзина", related_name="cart", blank = True, default=None)
     
     class Meta:
         verbose_name = "Пользователь"
@@ -101,7 +101,7 @@ class Media(models.Model):
 class CDKey(models.Model):
     content = models.CharField(verbose_name="Ключ")
     product = models.ForeignKey(Product, verbose_name="Товар", on_delete=models.CASCADE)
-    is_redeemed = models.BooleanField(verbose_name="Исчерпан")
+    is_redeemed = models.BooleanField(verbose_name="Исчерпан", default=False)
     
     class Meta:
         verbose_name = "Ключ"
@@ -119,7 +119,7 @@ class Post(models.Model):
     date = models.DateTimeField(verbose_name="Дата и время", default=now)
     header = models.CharField(verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержание")
-    media = models.ImageField(verbose_name="Изображение")
+    media = models.ImageField(verbose_name="Изображение", blank=True, null=True, default=None)
     
     class Meta:
         verbose_name = "Пост"

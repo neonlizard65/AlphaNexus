@@ -1,0 +1,30 @@
+@import "base";
+
+
+form{
+    color: set-text-color($secondary-color);
+    width: 60vw;
+    position: relative;
+    margin: auto;
+
+    .form-text{
+        color: set-text-color($secondary-color);
+    }
+
+    .submit{
+        @include flexCenter(column);
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .links{
+        @include flexCenter(column);
+        a{
+            color: $fourth-color;
+            transition: all 0.5s;
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+}

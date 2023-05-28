@@ -17,16 +17,9 @@ $font-sizes: (
     "regular": 1em,
     "large": 1.2em,
     "xl": 1.5em,
-    "xxl": 2em
+    "xxl": 2em,
+    "xxxl": 4em
 );
-
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-}
-
 
 @function set-text-color($color){
     @if(lightness($color) > 70){
@@ -36,3 +29,11 @@ $font-sizes: (
         @return $text-color;
     }
 }
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
