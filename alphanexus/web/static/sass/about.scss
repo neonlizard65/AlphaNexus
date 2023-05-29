@@ -53,6 +53,10 @@ span {
             font-size: map-get($font-sizes, "xxxl");
             font-weight: map-get($font-weights, "regular");
             animation: scale 2s forwards cubic-bezier(0.5, 1, 0.89, 1);
+
+            @include mobile{
+                font-size: map-get($font-sizes, "xxl");
+            }
         
         }
         

@@ -665,6 +665,11 @@ span:nth-child(100) {
   font-weight: 400;
   animation: scale 2s forwards cubic-bezier(0.5, 1, 0.89, 1);
 }
+@media (max-width: 1000px) {
+  .content .above h1 {
+    font-size: 2em;
+  }
+}
 .content .above p {
   color: white;
   text-align: center;

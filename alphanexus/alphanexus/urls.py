@@ -18,12 +18,27 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
+from api import views
 
+router = routers.DefaultRouter()
+router.register(r'countries', views.CountryViewSet)
+router.register(r'tags', views.TagViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'developers', views.DeveloperViewSet)
+router.register(r'products', views.ProductViewSet)
+router.register(r'posts', views.PostViewSet)
+router.register(r'reviews', views.ReviewViewSet)
+router.register(r'media', views.MediaViewSet)
+router.register(r'libraries', views.LibraryViewSet)
+router.register(r'comments', views.CommentViewSet)
+router.register(r'cdkeys', views.CDKeyViewSet)
+router.register(r'checks', views.CheckViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("web.urls")),
-    path("api/", include("api.urls"))
+    path("api/", include(router.urls))
 ]
 handler404 = "web.views.page404"
 

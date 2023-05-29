@@ -52,6 +52,7 @@ class Tag(models.Model):
     
 class Product(models.Model):
     name = models.CharField(verbose_name="Название")
+    banner = models.ImageField(verbose_name="Изображение", blank=False, help_text="Изображение должно быть в книжной ориентации (2:3)")
     release = models.DateField(verbose_name="Дата выхода", default=now)
     developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE)
     bio = models.TextField(verbose_name="Доп. информация")
@@ -99,7 +100,7 @@ class Media(models.Model):
         
     
 class CDKey(models.Model):
-    content = models.CharField(verbose_name="Ключ")
+    content = models.CharField(verbose_name="Ключ", unique=True)
     product = models.ForeignKey(Product, verbose_name="Товар", on_delete=models.CASCADE)
     is_redeemed = models.BooleanField(verbose_name="Исчерпан", default=False)
     
