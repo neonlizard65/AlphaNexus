@@ -85,6 +85,14 @@ def change_password(request: HttpRequest):
 
 #TODO: Забыли пароль?
 
+#Изменение пароля в личном кабинете
+@login_required(login_url='/login')
+def library(request: HttpRequest):
+    return render(request, 'library.html')
+
+def store(request: HttpRequest):
+    return render(request, 'store.html')
+
 def user_logout(request):
     logout(request)
     return redirect("home")

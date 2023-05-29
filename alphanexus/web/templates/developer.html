@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Панель разработчика{% endblock title %}
+
+{% block styles %}
+
+{% endblock styles %}
+
+{% block content %} 
+
+{% if user.is_authenticated %}
+
+    {% if developer %}
+    <div class="developer-panel">
+        <img src="" alt="">
+        <div class="info">
+            <div class="name"></div>
+            <div class="bio"></div>
+            <div class="youtube"></div>
+            <div class="creator"></div>
+        </div>
+    </div>
+
+    <h1>Ваши выпущенные игры</h1>
+    <div class="cards">
+        <div class="card" id="">
+            <img src="https://m.media-amazon.com/images/I/6110RSDn3PL.jpg" alt="">
+            <div class="card-title">Game of the year</div>
+            <div class="btns">
+                <div class="icon">
+                    <a href="">
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </a>
+                </div>
+                <div class="icon">
+                    <a href="">
+                        <i class="fa-solid fa-download"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+
+    <h1>Стать разработчиком</h1>
+
+    <a href="create_developer" class="btn-primary">Создать страницу разработчика</a>
+
+    <a href="join_developer" class="btn-primary">Присоединиться к группе разработчиков</a>
+
+    {% endif %}
+{% endif %}
+
+{% endblock content %} 

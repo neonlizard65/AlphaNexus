@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
-from .models import CustomUser
+from .models import CustomUser, Developer, Post, Product
 
 
 class RegisterForm(UserCreationForm):
@@ -24,3 +24,17 @@ class EditUserForm(UserChangeForm):
             "username": None
         }
         
+class DeveloperForm(forms.ModelForm):
+    class Meta:
+        model = Developer
+        fields = "__all__"
+        
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = "__all__"
+        
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = "__all__"

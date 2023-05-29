@@ -11,6 +11,8 @@ urlpatterns = [
     path("change_user", views.change_user, name="change_user"),
     path("cabinet", views.cabinet, name="cabinet"),
     path("developer", views.developer, name="developer"),
+    path("library", views.library, name="library"),
+    path("store", views.store, name="store"),
     
     
 ]

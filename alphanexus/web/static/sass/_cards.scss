@@ -23,6 +23,7 @@
         &-title{
             font-size: map-get($font-sizes, "xl");
             flex-grow: 1;
+            @include flexCenter(column);
         }
 
         &-price{

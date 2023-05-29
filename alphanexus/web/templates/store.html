@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Главная страница{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock styles%}
+
+{% block content %}
+<div class="cards">
+    <div class="card" id="">
+        <img src="https://m.media-amazon.com/images/I/6110RSDn3PL.jpg" alt="">
+        <div class="card-title">Game of the year</div>
+        <div class="card-price">1999.99 руб.</div>
+        <div class="btns">
+          <div class="icon">
+            <a href="" class="icon-wish">
+              <i class="fa-solid fa-heart"></i>
+            </a>
+          </div>
+          <div class="icon">
+            <a href="" class="icon-cart">
+              <i class="fa-solid fa-shopping-cart"></i>
+            </a>
+          </div>
+        
+        </div>
+      </div>
+</div>
+
+{% endblock content %}

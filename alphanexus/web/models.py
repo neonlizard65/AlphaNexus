@@ -57,6 +57,7 @@ class Product(models.Model):
     developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE)
     bio = models.TextField(verbose_name="Доп. информация")
     tags = models.ManyToManyField(Tag, verbose_name="Теги")
+    build = models.FileField(verbose_name="Файлы", default=None, blank = True, null = True)
     
     class Meta:
         verbose_name = "Товар"
@@ -67,6 +68,22 @@ class Product(models.Model):
     
     def __repr__(self):
         return f"{self.name} ({self.release.year})"
+    
+class DeveloperRequest(models.Model):
+    user = models.ForeignKey('CustomUser', verbose_name="Пользователь", on_delete=models.CASCADE, related_name="developer_requestuser", blank = True, null = True, default=None)
+    developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE)
+    approved = models.BooleanField(verbose_name="Принята заявка", blank=True, null=True, default = None)
+    
+    class Meta:
+        verbose_name = "Заявка"
+        verbose_name_plural = "Заявки"
+        
+    def __str__(self):
+        return f"{self.developer} - {self.user} - {self.approved}"
+    
+    def __repr__(self):
+        return f"{self.developer} - {self.user} - {self.approved}"
+    
 
 class CustomUser(AbstractUser):
     email = models.EmailField(verbose_name="Почта", unique=True)
