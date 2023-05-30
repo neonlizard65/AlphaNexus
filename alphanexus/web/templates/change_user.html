@@ -11,11 +11,12 @@
 {% endblock styles %}
 
 {% block content %}
+<a href="{% url 'cabinet' %}" class="back"><i class="fa-solid fa-arrow-left-long"></i></a>
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{form|crispy}}
     <div class="links">
-        <a href="change_pass">Изменить пароль</a>
+        <a href="{% url 'change_pass' %}">Изменить пароль</a>
     </div>
     <div class="submit">
         <input type="submit" value="Сохранить" class="btn-primary">

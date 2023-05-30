@@ -2,7 +2,7 @@
 
 {% load static %}
 {% load crispy_forms_tags %}
-{% block title %}Изменение пароля{% endblock title %}
+{% block title %}Изменение товара{% endblock title %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}">
@@ -11,12 +11,16 @@
 {% endblock styles %}
 
 {% block content %}
-<a href="{% url 'change_user' %}" class="back"><i class="fa-solid fa-arrow-left-long"></i></a>
-<form action="" method="post">
+<a href="{% url 'developer' %}" class="back"><i class="fa-solid fa-arrow-left-long"></i></a>
+<form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.errors }}
+    <div id='form-errors'>{{ form.errors }}</div>
     {{form|crispy}}
+
     <div class="submit">
-        <input type="submit" value="Изменить" class="btn-primary">
+        <input type="submit" value="Сохранить" class="btn-primary">
     </div>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>

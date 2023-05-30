@@ -51,13 +51,14 @@ class Tag(models.Model):
         return self.name
     
 class Product(models.Model):
-    name = models.CharField(verbose_name="Название")
+    name = models.CharField(verbose_name="Название", max_length=40)
     banner = models.ImageField(verbose_name="Изображение", blank=False, help_text="Изображение должно быть в книжной ориентации (2:3)")
     release = models.DateField(verbose_name="Дата выхода", default=now)
     developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE)
     bio = models.TextField(verbose_name="Доп. информация")
-    tags = models.ManyToManyField(Tag, verbose_name="Теги")
+    tags = models.ManyToManyField(Tag, verbose_name="Теги", help_text="Зажмите CTRL и нажмите на тег, чтобы выделить несколько")
     build = models.FileField(verbose_name="Файлы", default=None, blank = True, null = True)
+    price = models.FloatField(verbose_name="Цена")
     
     class Meta:
         verbose_name = "Товар"
@@ -90,7 +91,7 @@ class CustomUser(AbstractUser):
     phone = models.CharField(verbose_name="Телефон")
     avatar = models.ImageField(verbose_name="Аватар", blank = True, null = True, default=None)
     background = models.ImageField(verbose_name="Фон", blank = True, null = True, default=None)
-    is_private = models.BooleanField(verbose_name="Закрытый профиль", null=True, blank=True)
+    is_private = models.BooleanField(verbose_name="Закрытый профиль", default = False)
     country = models.ForeignKey(Country, verbose_name="Страна", on_delete=models.CASCADE, blank=True, null=True, default=None)
     bio = models.TextField(verbose_name="Доп. информация", blank = True, null = True, default=None)
     developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE, null=True, blank=True)

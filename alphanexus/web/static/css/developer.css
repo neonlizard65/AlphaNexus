@@ -146,49 +146,34 @@ h1 {
   font-weight: 600;
 }
 
-.back {
-  margin-left: 30px;
-  color: white;
-  text-decoration: none;
-  font-size: 1.5em;
+.not-dev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.back i {
-  transition: all 0.3s ease-in-out;
+.not-dev h1 {
+  margin-bottom: 30px;
 }
-.back i:hover {
-  transform: scale(0.9);
+.not-dev .btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.not-dev .btns .btn-primary {
+  margin-right: 20px;
 }
 
-form {
-  color: white;
-  width: 60vw;
-  position: relative;
-  margin: auto;
-}
-form .form-text {
-  color: white;
-}
-form .submit {
+.title-block {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 20px;
 }
-form .links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.title-block .btn-primary {
+  margin: 0px 20px;
 }
-form .links a {
-  color: #d1ac00;
-  transition: all 0.5s;
-}
-form .links a:hover {
-  transform: scale(1.1);
-}
-form #div_id_tags select {
-  min-height: 500px;
-}/*# sourceMappingURL=form.css.map */
+@media (max-width: 1000px) {
+  .title-block {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=developer.css.map */

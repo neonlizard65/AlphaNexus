@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% block title %}Изменение пользователя{% endblock title %}
+{% block title %}Пользователь{% endblock title %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/cabinet.css' %}">
@@ -21,14 +21,17 @@
             {% endif %}
             <h1 class="bold">{{user.username}}</h1>
             <p>{{user.first_name}} {{user.last_name}}</p>
-            <a href="{% url 'change_user' %}" class="btn-primary">Изменить уч. запись</a>
         </div>
-        {% if user.bio %}
-        <div class="bio">
-            <p>{{user.bio}}</p>
-        </div>
+        {% if user.is_private %}
+        <p>Пользователь скрыл свой профиль.</p>
+        {% else %}
+            {% if user.bio %}
+            <div class="bio">
+                <p>{{user.bio}}</p>
+            </div>
+            {% endif %}
+        <div class=""></div>
         {% endif %}
-
     </div>
     <div class="dev-block">
         

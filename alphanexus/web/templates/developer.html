@@ -4,7 +4,7 @@
 {% block title %}Панель разработчика{% endblock title %}
 
 {% block styles %}
-
+<link rel="stylesheet" href="{% static 'css/developer.css' %}">
 {% endblock styles %}
 
 {% block content %} 
@@ -12,44 +12,79 @@
 {% if user.is_authenticated %}
 
     {% if developer %}
-    <div class="developer-panel">
-        <img src="" alt="">
-        <div class="info">
-            <div class="name"></div>
-            <div class="bio"></div>
-            <div class="youtube"></div>
-            <div class="creator"></div>
-        </div>
-    </div>
-
-    <h1>Ваши выпущенные игры</h1>
-    <div class="cards">
-        <div class="card" id="">
-            <img src="https://m.media-amazon.com/images/I/6110RSDn3PL.jpg" alt="">
-            <div class="card-title">Game of the year</div>
-            <div class="btns">
-                <div class="icon">
-                    <a href="">
-                        <i class="fa-solid fa-compact-disc"></i>
-                    </a>
-                </div>
-                <div class="icon">
-                    <a href="">
-                        <i class="fa-solid fa-download"></i>
-                    </a>
-                </div>
+        <div class="developer-panel">
+            <img src="" alt="">
+            <div class="info">
+                <div class="name"></div>
+                <div class="bio"></div>
+                <div class="youtube"></div>
+                <div class="creator"></div>
             </div>
+        </div>
+
+        <div class="title-block">
+            {% if products %}
+            <h1>Ваши выпущенные игры</h1>
+            {% else %}
+            <h1>У вас пока нет выпущенных игр.</h1>
+            {% endif %}
+            <a href="create_product" class="btn-primary">Создать товар</a>
+        </div>
+
+        <div class="cards">
+            {% for product in products %}
+            <div class="card" id="{{product.id}}" onclick="document.location.href = '{% url 'change_product' product.id %}'">
+                <img src="{% get_media_prefix %}{{product.banner}}" alt="Баннер {{product.name}}">
+                <div class="card-title">{{product}}</div>
+                <a href="{% url 'change_product' product.id %}" class="btn-primary">Изменить товар</a>
+            </div>
+            {% endfor %}
         </div>
     </div>
     {% else %}
+    <h1>Список разработчиков, зарегистрированных на платформе</h1>
 
-    <h1>Стать разработчиком</h1>
-
-    <a href="create_developer" class="btn-primary">Создать страницу разработчика</a>
-
-    <a href="join_developer" class="btn-primary">Присоединиться к группе разработчиков</a>
+    <div class="dev-list">
+        {% for dev in devs %}
+        <div class="dev-card">
+            <div class="logo">
+                <img src="{% get_media_prefix %}{{dev.logo}}" alt="{{dev}}">
+                
+            </div>
+            <div class="name">{{dev.name}}</div>
+            <div class="email">{{dev.email}}</div>
+            {% if dev.youtube %}
+                <div class="youtube">{{dev.youtube}}</div>
+            {% endif %}
+            <div class="bio">{{dev.bio}}</div>
+            <div class="creator">
+                <a href="{% url 'users' dev.creator.id%}">Создатель - {{dev.creator}}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
     {% endif %}
+
+{% else %}
+<h1>Список разработчиков, зарегистрированных на платформе</h1>
+
+        <div class="dev-list">
+            {% for dev in devs %}
+            <div class="dev-card">
+                <div class="logo">
+                    <img src="{% url 'media/{{dev.logo}}' %}" alt="{{dev}}">
+                </div>
+                <div class="name">{{dev.name}}</div>
+                <div class="email">{{dev.email}}</div>
+                <div class="youtube">{{dev.youtube}}</div>
+                <div class="bio">{{dev.bio}}</div>
+                <div class="creator">
+                    <a href="{% url 'users' dev.creator.id%}"></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
 {% endif %}
 
 {% endblock content %} 

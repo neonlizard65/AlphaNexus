@@ -13,52 +13,52 @@
         <div class="menu">
             {% if user.is_authenticated %}
             <div class="menu-item btn-primary">
-                <a href="library">Библиотека</a>
+                <a href="{% url 'library' %}">Библиотека</a>
             </div>
             {% endif %} 
             <div class="menu-item btn-primary">
-                <a href="store">Магазин</a>
+                <a href="{% url 'store' %}">Магазин</a>
             </div>
             <div class="menu-item btn-primary">
-                <a href="about">О платформе</a>
+                <a href="{% url 'about' %}">О платформе</a>
             </div>
             <div class="menu-item btn-primary">
-                <a href="developer">Разработчикам</a>
+                <a href="{% url 'developer' %}">Разработчикам</a>
             </div>
         </div>
     </div>
     <div class="panel">
         {% if user.is_authenticated %}
         <div class="panel-btn">
-            <a href="logout" id="logout">
+            <a href="{% url 'logout' %}" id="logout">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
             </a>
         </div>
         <div class="panel-btn">
-            <a href="cabinet" id="cabinet">
+            <a href="{% url 'cabinet' %}" id="cabinet">
                 <i class="fa-solid fa-user"></i>
             </a>
         </div>
         {% else %}
         <div class="panel-btn">
-            <a href="login" id="login">
+            <a href="{% url 'login' %}" id="login">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
             </a>
         </div>
         <div class="panel-btn">
-            <a href="register" id="register">
+            <a href="{% url 'register' %}" id="register">
                 <i class="fa-solid fa-user-plus"></i>
             </a>
         </div>
         {% endif %}
         <div class="panel-btn">
-            <a href="wishlist" id="wishlist">
+            <a href="{% url 'wishlist' %}" id="wishlist">
                 <i class="fa-solid fa-heart"></i>
             </a>
             
         </div>
         <div class="panel-btn">
-            <a href="cart" id="cart">
+            <a href="{% url 'cart' %}" id="cart">
                 <i class="fa-solid fa-cart-shopping"></i>
             </a>
         </div>

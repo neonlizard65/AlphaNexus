@@ -44,6 +44,7 @@ span {
 
     .above{
         h1 {
+            text-shadow: 0 0 10px rgba(0,0,0,1);
             color: $text-color;
             line-height: 2;
             text-align: center;
@@ -61,6 +62,7 @@ span {
         }
         
         p{
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,1);
             color: $text-color;
             text-align: center;
             font-size: map-get($font-sizes, "xl");

@@ -1,16 +1,21 @@
+import logging
+import pdb
+from urllib.request import Request;
 from django.forms import ValidationError
-from django.http import HttpRequest
-from django.shortcuts import redirect, render
+from django.http import Http404, HttpRequest, QueryDict
+from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import RegisterForm, EditUserForm
-from .models import CustomUser
+from .forms import DeveloperForm, ProductForm, RegisterForm, EditUserForm
+from .models import CustomUser, Developer, Product
 
 def index(request):
-    context = {"n": range(0, 20)}
+    products = Product.objects.all().order_by('-id')[:30]
+    
+    context = {"products": products}
     return render(request, "index.html", context=context)
 
 def about(request):
@@ -57,11 +62,14 @@ def change_user(request: HttpRequest):
         form = EditUserForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
                 messages.success(request, 'Учётная запись обновлена')
-                user = form.save()
-                return render(request, "change_user.html", context = {'form': form, 'data': user_data})
+                form.save()
+                user_data = CustomUser.objects.get(id = request.user.id)
+                return redirect(request.path_info)
         else:
                 return render(request, "change_user.html", context = {'form': form, 'data': user_data})
     else: 
+        user_data = CustomUser.objects.get(id = request.user.id)
+        context = {'user': user_data}
         form = EditUserForm(instance = request.user)
         return render(request, "change_user.html", context = {'form': form, 'data': user_data})
 
@@ -91,7 +99,10 @@ def library(request: HttpRequest):
     return render(request, 'library.html')
 
 def store(request: HttpRequest):
-    return render(request, 'store.html')
+    products = Product.objects.all()
+    
+    context = {"products": products}
+    return render(request, 'store.html', context=context)
 
 def user_logout(request):
     logout(request)
@@ -100,5 +111,81 @@ def user_logout(request):
 def page404(request, exception):
     return render(request, '404.html', status=404)
 
-def developer(request):
-    return render(request, "developer.html")
+
+def developer(request:HttpRequest):
+    if request.user.is_authenticated:
+        user_data = CustomUser.objects.get(id = request.user.id)
+        developer = Developer.objects.filter(creator = user_data).first()
+        products = Product.objects.filter(developer = developer)
+        if not developer:
+            devs = Developer.objects.all()
+            context = {'user': user_data, "developer":developer, "devs":devs, "products":products}
+            return render(request, "developer.html", context=context)   
+        context = {'user': user_data, "developer":developer, "products":products}
+        return render(request, "developer.html", context=context)
+    else:
+        devs = Developer.objects.all()
+        context = {'user': user_data, "devs":devs}
+        return render(request, "developer.html", context=context)
+
+
+def create_developer(request:HttpRequest):
+    if request.method == 'POST':
+        form = DeveloperForm(request.POST, request.FILES)
+        context = {"form": form}
+        if form.is_valid():
+            user = CustomUser.objects.get(id = request.user.id)
+            form.save(user=user)
+            return redirect("developer")
+        else:
+            return render(request, "create_developer.html", context=context)
+    else:
+        form = DeveloperForm()
+        context = {"form": form}
+        return render(request, "create_developer.html", context=context)
+
+
+def change_product(request: HttpRequest, id):
+    product = get_object_or_404(Product, id=id)
+    form = ProductForm(instance=product)
+    context = {"product": product, "form": form}
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect(request.path_info)   
+        else:
+            return render(request, "change_product.html", context=context)    
+    return render(request, "change_product.html", context=context)
+
+def create_product(request: HttpRequest):
+    if request.method == 'POST':
+        user = CustomUser.objects.get(id = request.user.id)
+        form = ProductForm(request.POST, request.FILES)
+        context = {"form": form}
+        if form.is_valid():
+            print(user.developer)
+            form.save(user.developer)
+            return redirect("developer")   
+        else:
+            return render(request, "create_product.html", context=context)    
+    else:
+        form = ProductForm()
+        context = {"form": form}
+        return render(request, "create_product.html", context=context)
+
+
+def users(request:HttpRequest, id):
+    user = get_object_or_404(CustomUser, id=id)
+    context = {"user": user}
+    return render(request, "users.html", context=context)
+
+
+
+
+
+def wishlist(request):
+    return render(request, "wishlist.html")
+
+def cart(request):
+    return render(request, "cart.html")

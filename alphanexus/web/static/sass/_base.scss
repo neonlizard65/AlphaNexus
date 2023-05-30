@@ -17,3 +17,13 @@ body{
     min-height: 82vh;
     padding: 20px;
 }
+
+h1{
+    margin: 10px;
+    font-size: map-get($font-sizes, "xxl");
+    font-weight: map-get($font-weights, "medium");
+}
+
+.bold{
+    font-weight: map-get($font-weights, "bold");
+}

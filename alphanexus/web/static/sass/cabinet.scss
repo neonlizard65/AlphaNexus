@@ -17,14 +17,12 @@
     .bg-block{
         @include flexCenter(column);
         position: relative;
-
-        h1{
-            margin: 10px;
-            font-size: map-get($font-sizes, "xxl");
-        }
     
         .avatar-block{
             @include flexCenter(column);
+            h1{
+                text-shadow: 0 0 10px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,1);
+            }
             p{
                 margin-bottom: 10px;
             }

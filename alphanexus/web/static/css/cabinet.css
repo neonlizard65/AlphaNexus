@@ -49,7 +49,7 @@
   position: relative;
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 10px;
 }
 .cards .card {
@@ -61,31 +61,41 @@
   box-shadow: 0px 4px 10px 1px black;
   margin: auto;
   width: 300px;
-  height: 500px;
+  height: 550px;
   background-color: #1b1b1b;
   color: white;
   border-radius: 10px;
 }
 .cards .card img {
-  margin-top: 5px;
+  margin-top: 10px;
   border-radius: 10px;
   width: 90%;
-  height: 70%;
+  height: 65%;
 }
 .cards .card-title {
+  padding: 10px;
   font-size: 1.5em;
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  max-width: 300px;
+  max-height: 150px;
+  overflow: hidden;
+  text-align: center;
 }
 .cards .card-price {
+  font-size: 1.2em;
   font-weight: 600;
 }
 .cards .card:hover {
   background-color: #282828;
   cursor: pointer;
+}
+.cards .card .btn-primary {
+  position: relative;
+  top: -20px;
 }
 .cards .card .btns {
   display: flex;
@@ -126,6 +136,16 @@ body {
   padding: 20px;
 }
 
+h1 {
+  margin: 10px;
+  font-size: 2em;
+  font-weight: 500;
+}
+
+.bold {
+  font-weight: 600;
+}
+
 .content {
   position: relative;
 }
@@ -150,15 +170,14 @@ body {
   flex-direction: column;
   position: relative;
 }
-.cabinet .bg-block h1 {
-  margin: 10px;
-  font-size: 2em;
-}
 .cabinet .bg-block .avatar-block {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.cabinet .bg-block .avatar-block h1 {
+  text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
 }
 .cabinet .bg-block .avatar-block p {
   margin-bottom: 10px;

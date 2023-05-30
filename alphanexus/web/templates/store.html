@@ -5,29 +5,32 @@
 {% block title %}Главная страница{% endblock title %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/about.css' %}">
+
 {% endblock styles%}
 
 {% block content %}
+<h1>Каталог</h1>
 <div class="cards">
-    <div class="card" id="">
-        <img src="https://m.media-amazon.com/images/I/6110RSDn3PL.jpg" alt="">
-        <div class="card-title">Game of the year</div>
-        <div class="card-price">1999.99 руб.</div>
-        <div class="btns">
-          <div class="icon">
-            <a href="" class="icon-wish">
-              <i class="fa-solid fa-heart"></i>
-            </a>
-          </div>
-          <div class="icon">
-            <a href="" class="icon-cart">
-              <i class="fa-solid fa-shopping-cart"></i>
-            </a>
-          </div>
-        
-        </div>
+  {% for product in products %}
+  <div class="card" id="{{product.id}}">
+    <img src="/media/{{product.banner}}" alt="Баннер {{product.name}}">
+    <div class="card-title">{{product}}</div>
+    <div class="card-price">{{product.price}} ₽</div>
+    <div class="btns">
+      <div class="icon">
+        <a href="{% url 'wishlist' %}" class="icon-wish">
+          <i class="fa-solid fa-heart"></i>
+        </a>
       </div>
+      <div class="icon">
+        <a href="{% url 'cart' %}" class="icon-cart">
+          <i class="fa-solid fa-shopping-cart"></i>
+        </a>
+      </div>
+    
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock content %}

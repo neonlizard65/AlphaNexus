@@ -1,0 +1,31 @@
+@import "base";
+.not-dev{
+    @include flexCenter(column);
+    
+    h1{
+        margin-bottom: 30px;
+    }
+    
+    .btns{
+        @include flexCenter(row);
+
+        .btn-primary{
+            margin-right: 20px;
+        }
+    }
+
+}
+
+.title-block{
+    display: flex;
+    align-items: center;
+
+    .btn-primary{
+        margin: 0px 20px;
+    }
+
+    @include mobile{
+        flex-direction: column;
+        
+    }
+}

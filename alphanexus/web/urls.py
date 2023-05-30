@@ -13,7 +13,12 @@ urlpatterns = [
     path("developer", views.developer, name="developer"),
     path("library", views.library, name="library"),
     path("store", views.store, name="store"),
-    
+    path("wishlist", views.wishlist, name="wishlist"),
+    path("cart", views.cart, name="cart"),
+    path("change_product/<int:id>", views.change_product, name="change_product"),
+    path("users/<int:id>", views.users, name="users"),
+    path("create_product", views.create_product, name="create_product"),
+    path("create_developer", views.create_developer, name="create_developer"),
     
 ]
 
