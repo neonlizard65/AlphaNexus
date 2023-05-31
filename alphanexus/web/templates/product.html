@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}{{product}}{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock styles %}
+
+{% block content %} 
+<div class="game">
+    <div class="game-banner">
+        <img src="{%get_media_prefix%}{{product.banner}}" alt="Постер {{product}}">
+    </div>
+    <div class="game-info">
+        <h1>{{product}}</h1>
+        {% include "includes/wishcart.html" %}
+        <div class="field">
+            <strong>Дата выхода:</strong> 
+            <div class="data">
+                {{product.release}}
+            </div>
+        </div>
+        <div class="field">
+            <strong>Разработчик:</strong> 
+            <div class="data">
+                <a href="{% url 'developer_games' product.developer.id %}">{{product.developer}}</a></div>
+            </div>
+        <div class="field">
+            <strong>Описание:</strong> 
+            <div class="data">
+                {{product.bio}}</div>
+            </div>
+        <div class="field">
+            <strong>Теги:</strong> 
+            <div class="data tags">
+                {% for tag in product.tags.all %}
+                <div class="tag">
+                    {{tag}}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="field">
+            <strong>Цена:</strong>
+            <div class="data">
+                {{product.price}} ₽
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock content%}

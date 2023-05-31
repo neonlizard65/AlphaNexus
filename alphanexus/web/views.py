@@ -1,4 +1,5 @@
 import logging
+from math import e
 import pdb
 from urllib.request import Request;
 from django.forms import ValidationError
@@ -12,10 +13,23 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import DeveloperForm, ProductForm, RegisterForm, EditUserForm
 from .models import CustomUser, Developer, DeveloperRequest, Product
 
-def index(request):
-    products = Product.objects.all().order_by('-id')[:30]
+def index(request:HttpRequest):
     
+    products = Product.objects.all().order_by('-id')[:30]
     context = {"products": products}
+    if(request.user.is_authenticated):
+        user_data = CustomUser.objects.get(id = request.user.id)
+        wishes_query = user_data.wishlist.all().values('id')
+        wishes = []
+        for dictionary in wishes_query:
+            for key in dictionary:
+                wishes.append(dictionary[key])
+        cart_query = user_data.cart.all().values('id')
+        cart = []
+        for dictionary in cart_query:
+            for key in dictionary:
+                cart.append(dictionary[key])
+        context = {"products": products, "user": user_data, "wishes": wishes, "cart": cart}
     return render(request, "index.html", context=context)
 
 def about(request):
@@ -106,7 +120,7 @@ def store(request: HttpRequest):
 
 def user_logout(request):
     logout(request)
-    return redirect("home")
+    return redirect("login")
 
 def page404(request, exception):
     return render(request, '404.html', status=404)
@@ -141,7 +155,28 @@ def developer_games(request:HttpRequest, id):
     developer = get_object_or_404(Developer, id=id)
     products = Product.objects.filter(developer = developer).distinct()
     users = CustomUser.objects.filter(developer = developer)
-    context = {"developer": developer, "products": products, "users": users}
+    if request.user.is_authenticated:
+        user_data = CustomUser.objects.get(id = request.user.id)
+
+        wishes_query = user_data.wishlist.all().values('id')
+        wishes = []
+        for dictionary in wishes_query:
+            for key in dictionary:
+                wishes.append(dictionary[key])
+        cart_query = user_data.cart.all().values('id')
+        cart = []
+        for dictionary in cart_query:
+            for key in dictionary:
+                cart.append(dictionary[key])
+        
+        requests = list(DeveloperRequest.objects.filter(user = user_data).values_list("developer"))
+        if requests:
+            requests = [request[0] for request in requests]
+            context = {"developer": developer, "products": products, "users": users, "requests": requests, "wishes": wishes, "cart": cart}
+        else:
+            context = {"developer": developer, "products": products, "users": users, "wishes": wishes, "cart": cart}
+    else:
+        context = {"developer": developer, "products": products, "users": users}
     
     return render(request, "developer_games.html" ,context)
 
@@ -201,12 +236,65 @@ def users(request:HttpRequest, id):
     context = {"user": user}
     return render(request, "users.html", context=context)
 
+def product(request:HttpRequest, id):
+    product = get_object_or_404(Product, id=id)
+    context = {"product": product}
+    
+    if(request.user.is_authenticated):
+        user_data = get_object_or_404(CustomUser, id=request.user.id)  
+
+        wishes_query = user_data.wishlist.all().values('id')
+        wishes = []
+        for dictionary in wishes_query:
+            for key in dictionary:
+                wishes.append(dictionary[key])
+        cart_query = user_data.cart.all().values('id')
+        cart = []
+        for dictionary in cart_query:
+            for key in dictionary:
+                cart.append(dictionary[key])
+        context = {"product": product, "user": user_data, "wishes": wishes, "cart": cart}
+        
+    return render(request, "product.html", context)
 
 
 
-
+@login_required(login_url="/login")
 def wishlist(request):
-    return render(request, "wishlist.html")
+    user_data = get_object_or_404(CustomUser, id=request.user.id)
+    wishes_query = user_data.wishlist.all().values('id')
+    wishes = []
+    for dictionary in wishes_query:
+        for key in dictionary:
+            wishes.append(dictionary[key])
+    cart_query = user_data.cart.all().values('id')
+    cart = []
+    for dictionary in cart_query:
+        for key in dictionary:
+            cart.append(dictionary[key])
+    context = {"user": user_data, "wishes": wishes, "cart": cart}
+    return render(request, "wishlist.html", context)
 
+
+
+@login_required(login_url="/login")
 def cart(request):
-    return render(request, "cart.html")
+    user_data = get_object_or_404(CustomUser, id=request.user.id)
+    wishes_query = user_data.wishlist.all().values('id')
+    wishes = []
+    for dictionary in wishes_query:
+        for key in dictionary:
+            wishes.append(dictionary[key])
+    cart_query = user_data.cart.all().values('id')
+    cart = []
+    for dictionary in cart_query:
+        for key in dictionary:
+            cart.append(dictionary[key])
+    
+    prices = list(user_data.cart.all().values_list("price"))
+    sum = 0
+    for price in prices:
+        sum += price[0]
+    print(sum)
+    context = {"user": user_data, "wishes": wishes, "cart": cart, "sum": sum}
+    return render(request, "cart.html", context)

@@ -1,0 +1,45 @@
+{% load static %}
+<div class="btns">
+    <div class="icon">
+        
+        {% if user.is_authenticated%}
+            {% if product in user.wishlist.all %}
+            <div class="icon-wish" onclick="event.stopImmediatePropagation(); removeWish({{user.id}}, {{product.id}}, {{wishes}})">
+              <i class="fa-solid fa-heart activated"></i>
+            </div>
+            {% else %}
+            <div class="icon-wish" onclick="event.stopImmediatePropagation(); addWish({{user.id}}, {{product.id}}, {{wishes}})">
+              <i class="fa-solid fa-heart"></i>
+            </div>
+            {% endif %}
+          {% else %}
+          <div class="icon-wish" onclick="document.location.href = '{% url 'wishlist' %}'; event.stopImmediatePropagation();">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          {% endif %}
+      </div>
+      <div class="icon">
+        {% if user.is_authenticated%}
+          {% if product in user.cart.all %}
+          <div class="icon-cart" onclick="event.stopImmediatePropagation(); removeCart({{user.id}}, {{product.id}}, {{cart}})">
+            <i class="fa-solid fa-shopping-cart activated"></i>
+          </div>
+          {% else %}
+          <div class="icon-cart" onclick="event.stopImmediatePropagation(); addCart({{user.id}}, {{product.id}}, {{cart}})">
+            <i class="fa-solid fa-shopping-cart"></i>
+          </div>
+          {% endif %}
+        {% else %}
+        <div class="icon-cart" onclick="document.location.href = '{% url 'cart' %}'; event.stopImmediatePropagation();">
+          <i class="fa-solid fa-shopping-cart"></i>
+        </div>
+          {% endif %}
+      </div>
+      
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{% static 'script/csrf.js' %}"></script>
+  <script src="{% static 'script/add_wish.js' %}"></script>
+  <script src="{% static 'script/add_cart.js' %}"></script>
+  <script src="{% static 'script/remove_wish.js' %}"></script>
+  <script src="{% static 'script/remove_cart.js' %}"></script>
+</div>

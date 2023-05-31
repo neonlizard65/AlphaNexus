@@ -95,7 +95,7 @@ class CustomUser(AbstractUser):
     country = models.ForeignKey(Country, verbose_name="Страна", on_delete=models.CASCADE, blank=True, null=True, default=None)
     bio = models.TextField(verbose_name="Доп. информация", blank = True, null = True, default=None)
     developer = models.ForeignKey(Developer, verbose_name="Компания", on_delete=models.CASCADE, null=True, blank=True)
-    wishlist = models.ManyToManyField(Product, verbose_name="Список желаемых", related_name="wishlist", blank = True, default=None)
+    wishlist = models.ManyToManyField(Product, verbose_name="Список желаемого", related_name="wishlist", blank = True, default=None)
     cart = models.ManyToManyField(Product, verbose_name="Корзина", related_name="cart", blank = True, default=None)
     
     class Meta:

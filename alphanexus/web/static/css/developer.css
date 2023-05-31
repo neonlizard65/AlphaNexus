@@ -97,29 +97,57 @@
   position: relative;
   top: -20px;
 }
-.cards .card .btns {
+
+.btns {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 }
-.cards .card .btns .icon {
+.btns .icon {
   margin: 10px;
   font-size: 2em;
-  transition: all 0.3s ease-in-out;
 }
-.cards .card .btns .icon a {
-  transition: all 0.5s ease-in-out;
+.btns .icon-wish {
+  transition: all 0.3s ease-in-out;
+  /*Scale change speed*/
   color: white;
 }
-.cards .card .btns .icon:hover {
+.btns .icon-wish:hover {
+  color: #fc6471;
   transform: scale(0.9);
 }
-.cards .card .btns .icon .icon-wish:hover {
+.btns .icon-wish:hover .activated {
+  transition: all 0.5s ease-in-out;
+  /*Color change speed*/
+  color: white;
+}
+.btns .icon-wish .activated {
   color: #fc6471;
 }
-.cards .card .btns .icon .icon-cart:hover {
+.btns .icon-cart {
+  transition: all 0.3s ease-in-out;
+  /*Scale change speed*/
+  color: white;
+}
+.btns .icon-cart:hover {
   color: #d1ac00;
+  transform: scale(0.9);
+}
+.btns .icon-cart:hover .activated {
+  transition: all 0.5s ease-in-out;
+  /*Color change speed*/
+  color: white;
+}
+.btns .icon-cart .activated {
+  color: #d1ac00;
+}
+
+.sum {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 2em;
+  font-weight: 600;
 }
 
 /*html::-webkit-scrollbar{

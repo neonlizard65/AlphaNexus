@@ -45,36 +45,56 @@
             position: relative;
             top: -20px;
         }
-
-        .btns{
-            @include flexCenter(row);
-
-            .icon{
-                margin: 10px;
-                font-size: map-get($font-sizes, "xxl");
-                @include fadeTransition;
-                a{
-                    @include fadeTransition(0.5s);
-                    color: white;
-                }
-
-                &:hover{
-                    transform: scale(0.9);
-                }
-
-                .icon-wish{
-                    &:hover{
-                        color: $tertiary-color;
-                    }
-                }
-                .icon-cart{
-                    &:hover{
-                        color: $fourth-color;
-                    }
-                }
-            }
-            
-        }
     }
 
+}
+
+.btns{
+    @include flexCenter(row);
+
+    .icon{
+        margin: 10px;
+        font-size: map-get($font-sizes, "xxl");
+
+        &-wish{
+            @include fadeTransition; /*Scale change speed*/
+            color: white;
+            &:hover{
+                color: $tertiary-color;
+                transform: scale(0.9);
+                .activated{
+                    @include fadeTransition(0.5s); /*Color change speed*/
+                    color: white;
+                }
+            }
+            .activated{
+                color: $tertiary-color;
+                
+            }
+        }
+        &-cart{
+            @include fadeTransition; /*Scale change speed*/
+            color: white;
+            &:hover{
+                color: $fourth-color;
+                transform: scale(0.9);
+                .activated{
+                    @include fadeTransition(0.5s); /*Color change speed*/
+                    color: white;
+                }
+            }
+            .activated{
+                color: $fourth-color;
+                
+            }
+        }
+    }
+    
+}
+
+.sum{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: map-get($font-sizes, "xxl");
+    font-weight: map-get($font-weights, "bold");
 }
