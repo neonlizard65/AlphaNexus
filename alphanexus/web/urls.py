@@ -19,6 +19,7 @@ urlpatterns = [
     path("users/<int:id>", views.users, name="users"),
     path("create_product", views.create_product, name="create_product"),
     path("create_developer", views.create_developer, name="create_developer"),
+    path("developer/<int:id>", views.developer_games, name="developer_games"),
     
 ]
 

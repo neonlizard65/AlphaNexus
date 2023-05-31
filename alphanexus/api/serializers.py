@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from web.models import CDKey, Check, Country, Comment, CustomUser, Developer, Library, Media, Post, Product, Review, Tag
+from web.models import CDKey, Check, Country, Comment, CustomUser, Developer, Library, Media, Post, Product, Review, Tag, DeveloperRequest
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,4 +60,9 @@ class CDKeySerializer(serializers.HyperlinkedModelSerializer):
 class CheckSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Check
+        fields = '__all__'
+        
+class DeveloperRequestSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = DeveloperRequest
         fields = '__all__'

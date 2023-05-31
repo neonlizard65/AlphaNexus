@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CDKey, Country, Check, CustomUser, Comment, Developer, Library, Media, Post, Product, Review, Tag
+from .models import CDKey, Country, Check, CustomUser, Comment, Developer, DeveloperRequest, Library, Media, Post, Product, Review, Tag
 
 admin.site.register(CDKey)
 admin.site.register(Country)
@@ -13,3 +13,4 @@ admin.site.register(Post)
 admin.site.register(Product)
 admin.site.register(Review)
 admin.site.register(Tag)
+admin.site.register(DeveloperRequest)

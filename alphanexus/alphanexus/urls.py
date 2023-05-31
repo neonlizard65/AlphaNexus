@@ -34,6 +34,7 @@ router.register(r'libraries', views.LibraryViewSet)
 router.register(r'comments', views.CommentViewSet)
 router.register(r'cdkeys', views.CDKeyViewSet)
 router.register(r'checks', views.CheckViewSet)
+router.register(r'developerrequests', views.DeveloperRequestViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

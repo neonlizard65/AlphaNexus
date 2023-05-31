@@ -42,23 +42,42 @@
         </div>
     </div>
     {% else %}
+
+    <div class="create-block">
+        <h1>Стать разработчиком</h1>
+        <p>Вы можете создать свой профиль разработчика или присоединиться к существующей команде</p>
+    
+        <a href="create_developer" class="btn-primary">Создать страницу разработчика</a>
+
+    </div>
+
     <h1>Список разработчиков, зарегистрированных на платформе</h1>
 
     <div class="dev-list">
         {% for dev in devs %}
-        <div class="dev-card">
+        <div class="dev-card" onclick="document.location.href = '{% url 'developer_games' dev.id %}'">
             <div class="logo">
                 <img src="{% get_media_prefix %}{{dev.logo}}" alt="{{dev}}">
-                
+                <div class="join-btn" id="join-block-{{dev.id}}">
+                    {% if dev.id in requests%}
+                    <h4>Заявка подана.</h4>
+                    {% else %}
+                    <button class="btn-primary" id="btn-{{dev.id}}" onclick="sendRequest({{user.id}}, {{dev.id}}, '{{csrf_token}}'); event.stopImmediatePropagation();">Присоединиться</button>
+                    {% endif %}
+                </div>
             </div>
-            <div class="name">{{dev.name}}</div>
-            <div class="email">{{dev.email}}</div>
-            {% if dev.youtube %}
-                <div class="youtube">{{dev.youtube}}</div>
-            {% endif %}
-            <div class="bio">{{dev.bio}}</div>
-            <div class="creator">
-                <a href="{% url 'users' dev.creator.id%}">Создатель - {{dev.creator}}</a>
+            <div class="dev-info">
+                <div class="name">{{dev.name}}</div>
+                <div class="email">{{dev.email}}</div>
+                <div class="youtube">
+                    {% if dev.youtube %}
+                    <a href="{{dev.youtube}}" class="youtube"><i class="fa-brands fa-youtube"></i></a>
+                    {% endif %}
+                </div>
+                <div class="bio">{{dev.bio}}</div>
+                <div class="creator">
+                    Создатель: <a href="{% url 'users' dev.creator.id%}">{{dev.creator}}</a>
+                </div>
             </div>
         </div>
         {% endfor %}
@@ -69,22 +88,30 @@
 {% else %}
 <h1>Список разработчиков, зарегистрированных на платформе</h1>
 
-        <div class="dev-list">
-            {% for dev in devs %}
-            <div class="dev-card">
-                <div class="logo">
-                    <img src="{% url 'media/{{dev.logo}}' %}" alt="{{dev}}">
-                </div>
-                <div class="name">{{dev.name}}</div>
-                <div class="email">{{dev.email}}</div>
-                <div class="youtube">{{dev.youtube}}</div>
-                <div class="bio">{{dev.bio}}</div>
-                <div class="creator">
-                    <a href="{% url 'users' dev.creator.id%}"></a>
-                </div>
-            </div>
-            {% endfor %}
+<div class="dev-list">
+    {% for dev in devs %}
+    <div class="dev-card">
+        <div class="logo">
+            <img src="{% get_media_prefix %}{{dev.logo}}" alt="{{dev}}">
         </div>
+        <div class="dev-info">
+            <div class="name">{{dev.name}}</div>
+            <div class="email">{{dev.email}}</div>
+            <div class="youtube">
+                {% if dev.youtube %}
+                <a href="{{dev.youtube}}" class="youtube"><i class="fa-brands fa-youtube"></i></a>
+                {% endif %}
+            </div>
+            <div class="bio">{{dev.bio}}</div>
+            <div class="creator">
+                Создатель: <a href="{% url 'users' dev.creator.id%}">{{dev.creator}}</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endif %}
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{% static 'script/csrf.js' %}"></script>
+<script src="{% static 'script/devrequest.js' %}"></script>
 {% endblock content %} 

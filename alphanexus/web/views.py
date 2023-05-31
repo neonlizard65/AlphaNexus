@@ -2,7 +2,7 @@ import logging
 import pdb
 from urllib.request import Request;
 from django.forms import ValidationError
-from django.http import Http404, HttpRequest, QueryDict
+from django.http import Http404, HttpRequest, HttpResponse, QueryDict
 from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -10,7 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import DeveloperForm, ProductForm, RegisterForm, EditUserForm
-from .models import CustomUser, Developer, Product
+from .models import CustomUser, Developer, DeveloperRequest, Product
 
 def index(request):
     products = Product.objects.all().order_by('-id')[:30]
@@ -117,16 +117,33 @@ def developer(request:HttpRequest):
         user_data = CustomUser.objects.get(id = request.user.id)
         developer = Developer.objects.filter(creator = user_data).first()
         products = Product.objects.filter(developer = developer)
+        requests = list(DeveloperRequest.objects.filter(user = user_data).values_list("developer"))
         if not developer:
+            #Если пользователь не привязан к группе
             devs = Developer.objects.all()
-            context = {'user': user_data, "developer":developer, "devs":devs, "products":products}
+            if requests:
+                requests = [request[0] for request in requests]
+                context = {'user': user_data, "developer":developer, "devs":devs, "products":products, "requests": requests}
+            else:
+                context = {'user': user_data, "developer":developer, "devs":devs, "products":products}        
             return render(request, "developer.html", context=context)   
-        context = {'user': user_data, "developer":developer, "products":products}
-        return render(request, "developer.html", context=context)
+        else:
+            #Если пользователь привязан к группе
+            context = {'user': user_data, "developer":developer, "products":products}
+            return render(request, "developer.html", context=context)
     else:
         devs = Developer.objects.all()
-        context = {'user': user_data, "devs":devs}
+        context = {"devs":devs}
         return render(request, "developer.html", context=context)
+
+
+def developer_games(request:HttpRequest, id):
+    developer = get_object_or_404(Developer, id=id)
+    products = Product.objects.filter(developer = developer).distinct()
+    users = CustomUser.objects.filter(developer = developer)
+    context = {"developer": developer, "products": products, "users": users}
+    
+    return render(request, "developer_games.html" ,context)
 
 
 def create_developer(request:HttpRequest):
@@ -144,20 +161,24 @@ def create_developer(request:HttpRequest):
         context = {"form": form}
         return render(request, "create_developer.html", context=context)
 
-
-def change_product(request: HttpRequest, id):
+@login_required(login_url='/login')
+def change_product(request:HttpRequest, id):
     product = get_object_or_404(Product, id=id)
-    form = ProductForm(instance=product)
-    context = {"product": product, "form": form}
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect(request.path_info)   
-        else:
-            return render(request, "change_product.html", context=context)    
-    return render(request, "change_product.html", context=context)
-
+    user = get_object_or_404(CustomUser, id = request.user.id)
+    if user.developer == product.developer:
+        form = ProductForm(instance=product)
+        context = {"product": product, "form": form}
+        if request.method == 'POST':
+            form = ProductForm(request.POST, request.FILES, instance=product)
+            if form.is_valid():
+                form.save()
+                return redirect(request.path_info)   
+            else:
+                return render(request, "change_product.html", context=context)    
+        return render(request, "change_product.html", context=context)
+    else:
+        return HttpResponse("Unauthorized", status=401)
+    
 def create_product(request: HttpRequest):
     if request.method == 'POST':
         user = CustomUser.objects.get(id = request.user.id)
