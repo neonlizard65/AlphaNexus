@@ -193,29 +193,46 @@ h1 {
   font-weight: 600;
 }
 
-.carousel-block .carousel {
-  box-shadow: 0px 4px 10px 1px black;
-  width: 66%;
-  margin: auto;
-  background-color: #282828;
-}
-.carousel-block .carousel img {
-  -o-object-fit: cover;
-     object-fit: cover;
-  height: 66vh;
-}
-.carousel-block .carousel h1, .carousel-block .carousel h2, .carousel-block .carousel h3, .carousel-block .carousel h4, .carousel-block .carousel h5, .carousel-block .carousel h6, .carousel-block .carousel p {
-  text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
+#modal-overlay {
+  display: none;
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0px;
+  height: 100vh;
+  z-index: 1000;
 }
 
-.additional {
+#modal-purchase {
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px 1px black;
+  background-color: rgba(40, 40, 40, 0.95);
+  width: 500px;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: white;
-  margin: 35px;
 }
-.additional p {
+#modal-purchase .modal-header {
+  margin: 20px;
+  font-size: 2em;
+  font-weight: 600;
+  text-align: center;
+}
+#modal-purchase .modal-content {
+  margin: 10px 20px;
+  text-align: center;
+  flex-grow: 1;
   font-size: 1.5em;
-}/*# sourceMappingURL=index.css.map */
+}
+#modal-purchase .modal-buttons {
+  margin-bottom: 40px;
+}
+#modal-purchase .modal-buttons #cancel {
+  margin: 10px;
+}/*# sourceMappingURL=cart.css.map */

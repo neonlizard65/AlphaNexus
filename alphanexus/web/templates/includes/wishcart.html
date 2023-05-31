@@ -1,7 +1,7 @@
 {% load static %}
 <div class="btns">
+  {% if product.id not in library %}
     <div class="icon">
-        
         {% if user.is_authenticated%}
             {% if product in user.wishlist.all %}
             <div class="icon-wish" onclick="event.stopImmediatePropagation(); removeWish({{user.id}}, {{product.id}}, {{wishes}})">
@@ -12,11 +12,12 @@
               <i class="fa-solid fa-heart"></i>
             </div>
             {% endif %}
-          {% else %}
-          <div class="icon-wish" onclick="document.location.href = '{% url 'wishlist' %}'; event.stopImmediatePropagation();">
-            <i class="fa-solid fa-heart"></i>
-          </div>
-          {% endif %}
+
+        {% else %}
+        <div class="icon-wish" onclick="document.location.href = '{% url 'wishlist' %}'; event.stopImmediatePropagation();">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        {% endif %}
       </div>
       <div class="icon">
         {% if user.is_authenticated%}
@@ -33,10 +34,13 @@
         <div class="icon-cart" onclick="document.location.href = '{% url 'cart' %}'; event.stopImmediatePropagation();">
           <i class="fa-solid fa-shopping-cart"></i>
         </div>
-          {% endif %}
+        {% endif %}
       </div>
-      
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      {% else %}
+      <div>В наличии</div>
+      {% endif %}  
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="{% static 'script/csrf.js' %}"></script>
   <script src="{% static 'script/add_wish.js' %}"></script>
   <script src="{% static 'script/add_cart.js' %}"></script>

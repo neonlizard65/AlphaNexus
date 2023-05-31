@@ -5,7 +5,7 @@
 {% block title %}Корзина{% endblock title %}
 
 {% block styles %}
-
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
 {% endblock styles%}
 
 {% block content %}
@@ -21,5 +21,38 @@
   {% endfor %}
 </div>
 <div class="sum">Итого: {{sum|floatformat:2 }}</div>
-<button class="btn-primary">Купить все товары</button>
+<button class="btn-primary" onclick="showModal();">Купить все товары</button>
+
+<!--Модальное окно-->
+<div id="modal-overlay">
+  <div id="modal-purchase">
+      <div class="modal-header">
+          Вы уверены, что хотите совершить покупку?
+      </div>
+      <div class="modal-content">
+          Итоговая сумма вашей покупки составляет {{sum|floatformat:2 }} ₽
+      </div>
+      <div class="modal-buttons">
+          <button id="cancel" class="btn-secondary" onclick="hideModal();">Отмена</button>
+          <button id="buy" class="btn-primary" onclick="purchase({{user.id}}, {{cart}}, {{wishes}}, {{sum}})">Купить</button>
+      </div>
+  </div>
+</div>
+
+<script>
+function showModal(){
+    modal = document.getElementById("modal-overlay");
+    modal.style.display = "flex";
+    modal.style.flexDirection = "column";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
+}
+
+function hideModal(){
+  modal = document.getElementById("modal-overlay");
+  modal.style.display = "none";
+}
+</script>
+
+<script src="{% static 'script/purchase_items.js' %}"></script>
 {% endblock content %}

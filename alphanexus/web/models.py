@@ -169,6 +169,7 @@ class Check(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name="Пользователь", on_delete=models.CASCADE)
     total = models.FloatField(verbose_name="Итого")
     date = models.DateTimeField(verbose_name="Дата и время", default=now)
+    games = models.ManyToManyField(Product, verbose_name="Игры")
     
     class Meta:
         verbose_name = "Чек"

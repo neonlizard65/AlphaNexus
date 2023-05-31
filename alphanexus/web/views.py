@@ -11,7 +11,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import DeveloperForm, ProductForm, RegisterForm, EditUserForm
-from .models import CustomUser, Developer, DeveloperRequest, Product
+from .models import CustomUser, Developer, DeveloperRequest, Library, Product
 
 def index(request:HttpRequest):
     
@@ -19,17 +19,26 @@ def index(request:HttpRequest):
     context = {"products": products}
     if(request.user.is_authenticated):
         user_data = CustomUser.objects.get(id = request.user.id)
+        
         wishes_query = user_data.wishlist.all().values('id')
         wishes = []
         for dictionary in wishes_query:
             for key in dictionary:
                 wishes.append(dictionary[key])
+                
         cart_query = user_data.cart.all().values('id')
         cart = []
         for dictionary in cart_query:
             for key in dictionary:
                 cart.append(dictionary[key])
-        context = {"products": products, "user": user_data, "wishes": wishes, "cart": cart}
+                
+        library_query = Library.objects.filter(user=user_data).values('product')  
+        library = []
+        for dictionary in library_query:
+            for key in dictionary:
+                library.append(dictionary[key]) 
+                
+        context = {"products": products, "user": user_data, "wishes": wishes, "cart": cart, "library": library}
     return render(request, "index.html", context=context)
 
 def about(request):
@@ -108,15 +117,35 @@ def change_password(request: HttpRequest):
 #TODO: Забыли пароль?
 
 #Изменение пароля в личном кабинете
-@login_required(login_url='/login')
-def library(request: HttpRequest):
-    return render(request, 'library.html')
+
 
 def store(request: HttpRequest):
     products = Product.objects.all()
-    
     context = {"products": products}
-    return render(request, 'store.html', context=context)
+    if request.user.is_authenticated:
+        user_data = get_object_or_404(CustomUser, id=request.user.id)
+        
+        wishes_query = user_data.wishlist.all().values('id')
+        wishes = []
+        for dictionary in wishes_query:
+            for key in dictionary:
+                wishes.append(dictionary[key])
+                
+        cart_query = user_data.cart.all().values('id')
+        cart = []
+        for dictionary in cart_query:
+            for key in dictionary:
+                cart.append(dictionary[key])
+        
+        library_query = Library.objects.filter(user=user_data).values('product')  
+        library = []
+        for dictionary in library_query:
+            for key in dictionary:
+                library.append(dictionary[key]) 
+                
+        context = {"user": user_data, "products": products, "wishes": wishes, "cart": cart, "library": library}
+    return render(request, "store.html", context)
+
 
 def user_logout(request):
     logout(request)
@@ -163,18 +192,25 @@ def developer_games(request:HttpRequest, id):
         for dictionary in wishes_query:
             for key in dictionary:
                 wishes.append(dictionary[key])
+                
         cart_query = user_data.cart.all().values('id')
         cart = []
         for dictionary in cart_query:
             for key in dictionary:
                 cart.append(dictionary[key])
+                
+        library_query = Library.objects.filter(user=user_data).values('product')  
+        library = []
+        for dictionary in library_query:
+            for key in dictionary:
+                library.append(dictionary[key]) 
         
         requests = list(DeveloperRequest.objects.filter(user = user_data).values_list("developer"))
         if requests:
             requests = [request[0] for request in requests]
-            context = {"developer": developer, "products": products, "users": users, "requests": requests, "wishes": wishes, "cart": cart}
+            context = {"developer": developer, "products": products, "users": users, "requests": requests, "wishes": wishes, "cart": cart, "library": library}
         else:
-            context = {"developer": developer, "products": products, "users": users, "wishes": wishes, "cart": cart}
+            context = {"developer": developer, "products": products, "users": users, "wishes": wishes, "cart": cart, "library": library}
     else:
         context = {"developer": developer, "products": products, "users": users}
     
@@ -248,12 +284,20 @@ def product(request:HttpRequest, id):
         for dictionary in wishes_query:
             for key in dictionary:
                 wishes.append(dictionary[key])
+                
         cart_query = user_data.cart.all().values('id')
         cart = []
         for dictionary in cart_query:
             for key in dictionary:
                 cart.append(dictionary[key])
-        context = {"product": product, "user": user_data, "wishes": wishes, "cart": cart}
+                
+        library_query = Library.objects.filter(user=user_data).values('product')  
+        library = []
+        for dictionary in library_query:
+            for key in dictionary:
+                library.append(dictionary[key])         
+        
+        context = {"product": product, "user": user_data, "wishes": wishes, "cart": cart, "library": library}
         
     return render(request, "product.html", context)
 
@@ -278,23 +322,38 @@ def wishlist(request):
 
 
 @login_required(login_url="/login")
-def cart(request):
+def cart(request: HttpRequest):
     user_data = get_object_or_404(CustomUser, id=request.user.id)
+    
+    #wishlist
     wishes_query = user_data.wishlist.all().values('id')
     wishes = []
     for dictionary in wishes_query:
         for key in dictionary:
             wishes.append(dictionary[key])
+        
+    #cart
     cart_query = user_data.cart.all().values('id')
     cart = []
     for dictionary in cart_query:
         for key in dictionary:
             cart.append(dictionary[key])
     
+    #sum
     prices = list(user_data.cart.all().values_list("price"))
     sum = 0
     for price in prices:
         sum += price[0]
-    print(sum)
+    
+    
     context = {"user": user_data, "wishes": wishes, "cart": cart, "sum": sum}
     return render(request, "cart.html", context)
+
+
+
+@login_required(login_url='/login')
+def library(request: HttpRequest):
+    library = Library.objects.filter(user = request.user.id)
+    context = {"library": library}
+    
+    return render(request, 'library.html', context=context)

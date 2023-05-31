@@ -1,0 +1,44 @@
+@import "base";
+
+#modal-overlay{
+    display: none;
+    @include fadeTransition;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    margin: 0px;
+    height: 100vh;
+    z-index: 1000;
+}
+
+#modal-purchase{
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px 1px black;
+    background-color: rgba($secondary-color, 0.95);
+    width: 500px;
+    height: 300px;
+    @include flexCenter(column);
+    .modal-header{
+        margin: 20px;
+        
+        font-size: map-get($map: $font-sizes, $key: "xxl");
+        font-weight: map-get($map: $font-weights, $key: "bold");
+        text-align: center;
+    }
+    .modal-content{
+        margin: 10px 20px;
+        text-align: center;
+        flex-grow: 1;
+        font-size: map-get($map: $font-sizes, $key: "xl");
+
+    }
+    .modal-buttons{
+        #cancel{
+            margin: 10px;
+        }
+        margin-bottom: 40px;
+    }
+}

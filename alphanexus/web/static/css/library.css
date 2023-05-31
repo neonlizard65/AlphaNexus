@@ -19,10 +19,6 @@
   border: none;
   transition: all 0.3s ease-in-out;
 }
-.btn-secondary:hover, .btn-primary:hover {
-  transform: scale(0.95);
-  background-color: #2f00ba;
-}
 .btn-secondary a, .btn-primary a {
   display: flex;
   display: flex;
@@ -39,10 +35,18 @@
   background-color: #4507ff;
   box-shadow: 0px 4px 1px #2f00ba;
 }
+.btn-primary:hover {
+  transform: scale(0.95);
+  background-color: #2f00ba;
+}
 
 .btn-secondary {
-  background-color: #fc6471;
-  box-shadow: 0px 4px 1px #fc4b5a;
+  background-color: red;
+  box-shadow: 0px 4px 1px #cc0000;
+}
+.btn-secondary:hover {
+  transform: scale(0.95);
+  background-color: #cc0000;
 }
 
 .cards {
@@ -103,6 +107,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  min-height: 52px;
 }
 .btns .icon {
   margin: 10px;
@@ -141,6 +146,20 @@
 }
 .btns .icon-cart .activated {
   color: #d1ac00;
+}
+.btns .icon-cd, .btns .icon-dl {
+  display: block;
+  transition: all 0.3s ease-in-out;
+  /*Scale change speed*/
+  color: white;
+}
+.btns .icon-cd:hover, .btns .icon-dl:hover {
+  transform: scale(0.9);
+}
+.btns .icon-cd:hover .activated, .btns .icon-dl:hover .activated {
+  transition: all 0.5s ease-in-out;
+  /*Color change speed*/
+  color: white;
 }
 
 .sum {

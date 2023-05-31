@@ -14,7 +14,7 @@ class TagSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["username", "last_name", "first_name", "email", "phone", "country", "bio", "wishlist", "cart", "avatar", "background"]
+        fields = ["username", "last_name", "first_name", "email", "phone", "developer", "country", "bio", "wishlist", "cart", "avatar", "background"]
         
 class DeveloperSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

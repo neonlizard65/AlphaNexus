@@ -10,21 +10,24 @@
 {% block content %} 
 <h1>Ваши купленные игры</h1>
 <div class="cards">
-    <div class="card" id="">
-        <img src="https://m.media-amazon.com/images/I/6110RSDn3PL.jpg" alt="">
-        <div class="card-title">Game of the year</div>
+    {% for item in library %}
+    <div class="card" onclick="document.location.href='{% url 'product' item.product.id %}'">
+        <img src="{% get_media_prefix %}{{item.product.banner}}" alt="Баннер {{item.product.name}}">
+        <div class="card-title">{{item.product}}</div>
         <div class="btns">
             <div class="icon">
-                <a href="">
+                <div class="icon-cd">
                     <i class="fa-solid fa-compact-disc"></i>
-                </a>
+                </div>
             </div>
             <div class="icon">
-                <a href="">
+                <a class="icon-dl" href="{% get_media_prefix %}{{item.product.build}}" download="{{item.product.name}}" onclick="event.stopImmediatePropagation();">
                     <i class="fa-solid fa-download"></i>
                 </a>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
+
 {% endblock content %} 

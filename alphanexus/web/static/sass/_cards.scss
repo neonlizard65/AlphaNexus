@@ -51,7 +51,7 @@
 
 .btns{
     @include flexCenter(row);
-
+    min-height: 52px;
     .icon{
         margin: 10px;
         font-size: map-get($font-sizes, "xxl");
@@ -86,6 +86,18 @@
             .activated{
                 color: $fourth-color;
                 
+            }
+        }
+        &-cd, &-dl{
+            display: block;
+            @include fadeTransition; /*Scale change speed*/
+            color: white;
+            &:hover{
+                transform: scale(0.9);
+                .activated{
+                    @include fadeTransition(0.5s); /*Color change speed*/
+                    color: white;
+                }
             }
         }
     }
