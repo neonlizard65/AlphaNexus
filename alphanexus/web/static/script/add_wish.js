@@ -3,9 +3,9 @@ function addWish(user, product, other_products){
     let wishlist = [];
 
     for(let other_product of other_products){
-        wishlist.push("http://127.0.0.1:8000/api/products/"+other_product + '/');
+        wishlist.push("http://127.0.0.1:9190/api/products/"+other_product + '/');
     }
-    wishlist.push("http://127.0.0.1:8000/api/products/"+product+'/');
+    wishlist.push("http://127.0.0.1:9190/api/products/"+product+'/');
 
     console.log({wishlist: wishlist});
     url = '/api/users/'+user+'/';

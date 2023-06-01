@@ -4,7 +4,7 @@ function removeCart(user, product, other_products){
 
     for(let other_product of other_products){
         if(other_product != product){
-            cart.push("http://127.0.0.1:8000/api/products/"+other_product + '/');
+            cart.push("http://127.0.0.1:9190/api/products/"+other_product + '/');
         }
     }
 

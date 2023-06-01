@@ -1,3 +1,5 @@
 /env
 /alphanexus/*/__pycache__
 /alphanexus/*/*/__pycache__
+/alphanexus/static
+/alphanexus/logs

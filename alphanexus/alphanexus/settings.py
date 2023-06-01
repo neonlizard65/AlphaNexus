@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c((yr4@%#3olkyteqrhfnxpallh5=xwmae6+w7^17aq5n*5c9&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['78.107.195.64', 'localhost', '*']
 
 
 # Application definition
@@ -125,12 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "web" / "static",
-    "/var/www/static/",
-]
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -143,6 +141,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-MEDIA_ROOT = BASE_DIR / "media/"
+MEDIA_ROOT = "/home/aleksei/Desktop/Lapchik/alphanexus/media"
 
 MEDIA_URL = "/media/"
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY=None

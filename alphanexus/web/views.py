@@ -323,7 +323,12 @@ def wishlist(request):
     for dictionary in cart_query:
         for key in dictionary:
             cart.append(dictionary[key])
-    context = {"user": user_data, "wishes": wishes, "cart": cart}
+    library_query = Library.objects.filter(user=user_data).values('product')  
+    library = []
+    for dictionary in library_query:
+        for key in dictionary:
+            library.append(dictionary[key])   
+    context = {"user": user_data, "wishes": wishes, "cart": cart, "library": library}
     return render(request, "wishlist.html", context)
 
 
@@ -352,8 +357,13 @@ def cart(request: HttpRequest):
     for price in prices:
         sum += price[0]
     
+    library_query = Library.objects.filter(user=user_data).values('product')  
+    library = []
+    for dictionary in library_query:
+        for key in dictionary:
+            library.append(dictionary[key])  
     
-    context = {"user": user_data, "wishes": wishes, "cart": cart, "sum": sum}
+    context = {"user": user_data, "wishes": wishes, "cart": cart, "sum": sum, "library": library}
     return render(request, "cart.html", context)
 
 

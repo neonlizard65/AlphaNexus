@@ -3,8 +3,8 @@ function sendRequest(user, dev){
         type: "POST",
         url: '/api/developerrequests/',
         data: {
-            user: "http://127.0.0.1:8000/api/users/"+user+'/',
-            developer: "http://127.0.0.1:8000/api/developers/"+dev+'/',
+            user: "http://127.0.0.1:9190/api/users/"+user+'/',
+            developer: "http://127.0.0.1:9190/api/developers/"+dev+'/',
             approved: null
         },
         success: function(data){

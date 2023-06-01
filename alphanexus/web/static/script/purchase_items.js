@@ -8,13 +8,13 @@ async function purchase(user, cart, wishlist, sum){
     let unique_wishlist = wishlist.filter((obj) => cart.indexOf(obj) === -1);
     
     for(let unique_game of unique_wishlist){
-        remaining_wishlist.push("http://127.0.0.1:8000/api/products/"+unique_game + '/');
+        remaining_wishlist.push("http://78.107.195.64:9190/api/products/"+unique_game + '/');
     }
     
     for(let game of cart){
         let key = await add_cdkey(game);
         //Обязательно нужно задержку,чтобы POST запрос успел обработаться
-        await delay(100); //Проверить на множество товаров, возможно, чем больше товаров, тем больше нужно ждать
+        await delay(300); //Проверить на множество товаров, возможно, чем больше товаров, тем больше нужно ждать
         await add_library(user, game, key);
         add_check(user, sum, cart)
     }
@@ -40,7 +40,7 @@ async function generate_key() {
         }
 
         const check_cd = async () => { 
-            const response = await fetch("http://127.0.0.1:8000/api/cdkeys/?content="+result);
+            const response = await fetch("http://78.107.195.64:9190/api/cdkeys/?content="+result);
             return response.json();
         }
 
@@ -55,7 +55,7 @@ async function generate_key() {
 //Добавление ключа в БД
 async function add_cdkey(product){
     let key = await generate_key();
-    url = "http://127.0.0.1:8000/api/cdkeys/";
+    url = "http://78.107.195.64:9190/api/cdkeys/";
     fetch(url, {
         method: "POST",
         headers:{
@@ -65,7 +65,7 @@ async function add_cdkey(product){
         body: JSON.stringify({
             content: key, 
             is_redeemed: true,
-            product: "http://127.0.0.1:8000/api/products/"+product + '/'
+            product: "http://78.107.195.64:9190/api/products/"+product + '/'
         }),
     })
     return key;
@@ -74,13 +74,13 @@ async function add_cdkey(product){
 //Добавление в библиотеку пользователя
 async function add_library(user, product, key){
 
-    url = "http://127.0.0.1:8000/api/cdkeys/?content="+key;
+    url = "http://78.107.195.64:9190/api/cdkeys/?content="+key;
     const response = await fetch(url);
     console.log(response);
     const key_link = await response.json();
 
     console.log(key_link);
-    var url = "http://127.0.0.1:8000/api/libraries/";
+    var url = "http://78.107.195.64:9190/api/libraries/";
     
     await fetch(url, {
         method: "POST",
@@ -89,8 +89,8 @@ async function add_library(user, product, key){
             'X-CSRFToken': csrftoken,
         },  
         body: JSON.stringify({
-            user: "http://127.0.0.1:8000/api/users/"+user + '/',
-            product: "http://127.0.0.1:8000/api/products/"+product + '/',
+            user: "http://78.107.195.64:9190/api/users/"+user + '/',
+            product: "http://78.107.195.64:9190/api/products/"+product + '/',
             cdkey: key_link[0].url
         }),
     })
@@ -101,9 +101,9 @@ function add_check(user, sum, cart){
     const date = new Date();
     let games = [];
     for(let game of cart){
-        games.push("http://127.0.0.1:8000/api/products/"+game + '/');
+        games.push("http://78.107.195.64:9190/api/products/"+game + '/');
     }
-    url = "http://127.0.0.1:8000/api/checks/";
+    url = "http://78.107.195.64:9190/api/checks/";
     fetch(url, {
         method: "POST",
         headers:{
@@ -111,7 +111,7 @@ function add_check(user, sum, cart){
             'X-CSRFToken': csrftoken,
         },  
         body: JSON.stringify({
-            user: "http://127.0.0.1:8000/api/users/"+user + '/',
+            user: "http://78.107.195.64:9190/api/users/"+user + '/',
             total: sum,
             date: date,
             games: games

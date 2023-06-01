@@ -52,7 +52,7 @@
     </div>
     {% endif %}
     {% if library %}
-    <h1 style="position: relative; z-index: 2;">Купленные игры:</h1>
+    <h1 style="position: relative; z-index: 2; text-shadow: 0 0 10px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,1);">Купленные игры:</h1>
     <div class="cards" style="position: relative; z-index: 2;">
         {% for item in library %}
         <div class="card" onclick="document.location.href='{% url 'product' item.product.id %}'">
