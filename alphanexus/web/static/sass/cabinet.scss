@@ -51,3 +51,91 @@
     }
 
 }
+
+.dev-card{
+    display: flex;
+    cursor: pointer;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    background-color: rgba(darken($secondary-color, 10%), 0.9);
+    border-radius: 10px;
+    @include fadeTransition;
+    .logo{
+        @include flexCenter(column);
+        margin: 10px 20px;
+        img{
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 10px 0px;
+        }
+        .join-btn{
+            z-index: 2;
+            .btn-primary{
+                z-index: 2;
+                cursor: pointer;
+            }
+            min-height: 45px;
+        }
+    }
+    &:hover{
+        background-color: darken($secondary-color, 5%);
+    }
+    @include mobile{
+        @include flexCenter(column)
+    }
+}
+
+
+.dev-info{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: start;
+    overflow: auto;
+
+
+    @include mobile{
+        @include flexCenter(column);
+        margin-top: 10px;
+        padding: 20px;
+    }
+    .name{
+        font-size: map-get($map: $font-sizes, $key: "xxl");
+        font-weight: map-get($map: $font-weights, $key: "bold");
+    }
+    .youtube{
+        min-height: 42px;
+    }
+    .bio{
+        overflow: auto;
+        margin-bottom: 10px;
+    }
+    .youtube{
+        width: fit-content;
+        height: fit-content;
+        font-size: map-get($map: $font-sizes, $key: "xl");
+        color: red;
+        @include fadeTransition;
+        &:hover{
+            transform: scale(0.9);
+        }
+    }
+    .creator a{
+        color: $tertiary-color;
+    }
+    
+}
+
+.cards{
+
+    .card{
+        background-color: rgba(darken($secondary-color, 10%), 0.9);
+        
+            &:hover{
+                background-color: rgba(darken($secondary-color, 5%), 1);
+                
+            }
+        }
+    }

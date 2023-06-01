@@ -12,35 +12,85 @@
 {% if user.is_authenticated %}
 
     {% if developer %}
-        <div class="developer-panel">
-            <img src="" alt="">
-            <div class="info">
-                <div class="name"></div>
-                <div class="bio"></div>
-                <div class="youtube"></div>
-                <div class="creator"></div>
-            </div>
+    <div class="developer-panel">
+        <div class="logo">
+            <img src="{%get_media_prefix%}{{developer.logo}}" alt="{{developer}}">
         </div>
-
-        <div class="title-block">
-            {% if products %}
-            <h1>Ваши выпущенные игры</h1>
-            {% else %}
-            <h1>У вас пока нет выпущенных игр.</h1>
-            {% endif %}
-            <a href="create_product" class="btn-primary">Создать товар</a>
-        </div>
-
-        <div class="cards">
-            {% for product in products %}
-            <div class="card" id="{{product.id}}" onclick="document.location.href = '{% url 'change_product' product.id %}'">
-                <img src="{% get_media_prefix %}{{product.banner}}" alt="Баннер {{product.name}}">
-                <div class="card-title">{{product}}</div>
-                <a href="{% url 'change_product' product.id %}" class="btn-primary">Изменить товар</a>
-            </div>
-            {% endfor %}
+        <div class="dev-info">
+            <div class="name">{{developer.name}}</div>
+            <div class="bio">{{developer.bio}}</div>
+            <div class="youtube">
+                {% if developer.youtube %}
+                    <a href="{{developer.youtube}}" class="youtube"><i class="fa-brands fa-youtube"></i></a>
+                {% endif %}</div>
+            <div class="creator">Создатель: <a href="{% url 'users' developer.creator.id%}">{{developer.creator}}</a></div>
+            <a href="{% url 'change_developer' %}" class="change-dev btn-primary">Редактировать профиль разработчика</a>
         </div>
     </div>
+
+    <div class="title-block">
+        {% if products %}
+        <h1>Ваши выпущенные игры</h1>
+        {% else %}
+        <h1>У вас пока нет выпущенных игр.</h1>
+        {% endif %}
+        <a href="create_product" class="btn-primary">Создать товар</a>
+    </div>
+
+    <div class="cards">
+        {% for product in products %}
+        <div class="card" id="{{product.id}}" onclick="document.location.href = '{% url 'change_product' product.id %}'">
+            <img src="{% get_media_prefix %}{{product.banner}}" alt="Баннер {{product.name}}">
+            <div class="card-title">{{product}}</div>
+            <a href="{% url 'change_product' product.id %}" class="btn-primary">Изменить товар</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h1 style="margin-top: 30px;">Группа разработчиков</h1>
+    <div class="cards members">
+        {% for devuser in devusers %}
+        <div class="member-card" onclick="document.location.href='{% url 'users' devuser.id%}'">
+            <div class="avatar">
+                <img src="{%get_media_prefix%}{{devuser.avatar}}" alt="">
+            </div>
+            <div class="name">{{devuser.username}}</div>
+            <div class="email">{{devuser.email}}</div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if user.id == developer.creator.id %}
+    <h1 style="margin-top: 30px;">Заявки на вступление в вашу группу</h1>
+    <div class="cards members">
+        {% for requser in requsers %}
+        <div class="member-card new" onclick="document.location.href='{% url 'users' requser.user.id%}'">
+            <div class="avatar">
+                {% if requser.user.avatar %} 
+                <img src="{%get_media_prefix%}{{requser.user.avatar}}" alt="{{requser.user.username}}">
+                {% else %}
+                <img src="{% static 'res/placeholder.png' %}" alt="Аватар">
+                {% endif %}
+            </div>
+            <div class="name">{{requser.user.username}}</div>
+            <div class="email">{{requser.user.email}}</div>
+            <div class="btns">
+                <div class="icon-btn no">
+                    <i class="fa-solid fa-x"></i>
+                </div>
+                <div class="icon-btn yes">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+
+
+
     {% else %}
 
     <div class="create-block">

@@ -197,3 +197,25 @@
 
         }
     }
+    .new{
+        height: 400px;
+        .icon-btn{
+            font-size: map-get($map: $font-sizes, $key: "xxl");
+            margin: 5px 20px;
+            @include fadeTransition;
+            &:hover{
+                transform: scale(0.9);   
+            }
+        }
+        .no:hover{
+            color: red;
+        }
+        .yes:hover{
+            color: rgb(89, 250, 45);
+        }
+    }
+    
+.change-dev{
+    width: fit-content;
+    margin-top: 30px;
+}

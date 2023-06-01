@@ -4,11 +4,12 @@
 {% block title %}Библиотека{% endblock title %}
 
 {% block styles %}
-
+<link rel="stylesheet" href="{% static 'css/library.css' %}">
 {% endblock styles %}
 
 {% block content %} 
 <h1>Ваши купленные игры</h1>
+{% if library %}
 <div class="cards">
     {% for item in library %}
     <div class="card" onclick="document.location.href='{% url 'product' item.product.id %}'">
@@ -16,7 +17,7 @@
         <div class="card-title">{{item.product}}</div>
         <div class="btns">
             <div class="icon">
-                <div class="icon-cd">
+                <div class="icon-cd" onclick="event.stopImmediatePropagation(); showModal('{{item.cdkey.content}}');">
                     <i class="fa-solid fa-compact-disc"></i>
                 </div>
             </div>
@@ -29,5 +30,40 @@
     </div>
     {% endfor %}
 </div>
+
+<!--Модальное окно-->
+<div id="modal-overlay">
+    <div id="modal-cd">
+        <div class="modal-buttons">
+            <div id="exit" onclick="hideModal();"><i class="fa-solid fa-x"></i></div>
+        </div>
+        <div class="modal-header">
+            Ключ игры
+        </div>
+        <div id="modal-content">
+            
+        </div>
+    </div>
+  </div>
+{% else %}
+<div>У Вас ещё нет приобретенных игр.</div>
+{% endif %}
+<script>
+function showModal(cdkey){
+    modal = document.getElementById("modal-overlay");
+    content = document.getElementById("modal-content");
+    modal.style.display = "flex";
+    modal.style.flexDirection = "column";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
+    content.innerHTML = cdkey;
+    
+}
+
+function hideModal(){
+    modal = document.getElementById("modal-overlay");
+    modal.style.display = "none";
+}
+</script>
 
 {% endblock content %} 

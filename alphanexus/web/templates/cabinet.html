@@ -30,12 +30,38 @@
         {% endif %}
 
     </div>
-    <div class="dev-block">
-        
+    {% if user.developer %}
+    <h1 style="position: relative; z-index: 2;">Является разработчиком в:</h1>
+    <div class="dev-card" style="position: relative; z-index: 2;" onclick="document.location.href = '{% url 'developer_games' user.developer.id %}'">
+        <div class="logo">
+            <img src="{% get_media_prefix %}{{user.developer.logo}}" alt="{{user.developer}}">
+        </div>
+        <div class="dev-info">
+            <div class="name">{{user.developer.name}}</div>
+            <div class="email">{{user.developer.email}}</div>
+            <div class="youtube">
+                {% if user.developer.youtube %}
+                <a href="{{user.developer.youtube}}" class="youtube"><i class="fa-brands fa-youtube"></i></a>
+                {% endif %}
+            </div>
+            <div class="bio">{{user.developer.bio}}</div>
+            <div class="creator">
+                Создатель: <a href="{% url 'users' user.developer.creator.id%}">{{user.developer.creator}}</a>
+            </div>
+        </div>
     </div>
-    <div class="game-block">
-
+    {% endif %}
+    {% if library %}
+    <h1 style="position: relative; z-index: 2;">Купленные игры:</h1>
+    <div class="cards" style="position: relative; z-index: 2;">
+        {% for item in library %}
+        <div class="card" onclick="document.location.href='{% url 'product' item.product.id %}'">
+            <img src="{% get_media_prefix %}{{item.product.banner}}" alt="Баннер {{item.product.name}}">
+            <div class="card-title">{{item.product}}</div>
+        </div>
+        {% endfor %}
     </div>
+    {% endif %}
 </div>
 
 {% endblock content %}

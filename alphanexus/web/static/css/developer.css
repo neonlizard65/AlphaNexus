@@ -405,4 +405,28 @@ h1 {
 }
 .member-card .email {
   font-size: 1.2em;
+}
+
+.new {
+  height: 400px;
+}
+.new .icon-btn {
+  font-size: 2em;
+  margin: 5px 20px;
+  transition: all 0.3s ease-in-out;
+}
+.new .icon-btn:hover {
+  transform: scale(0.9);
+}
+.new .no:hover {
+  color: red;
+}
+.new .yes:hover {
+  color: rgb(89, 250, 45);
+}
+
+.change-dev {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 30px;
 }/*# sourceMappingURL=developer.css.map */

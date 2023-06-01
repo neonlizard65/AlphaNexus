@@ -245,4 +245,98 @@ h1 {
 }
 .cabinet .bg-block .bio p {
   padding: 20px;
+}
+
+.dev-card {
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  background-color: rgba(15, 15, 15, 0.9);
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.dev-card .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px 20px;
+}
+.dev-card .logo img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin: 10px 0px;
+}
+.dev-card .logo .join-btn {
+  z-index: 2;
+  min-height: 45px;
+}
+.dev-card .logo .join-btn .btn-primary {
+  z-index: 2;
+  cursor: pointer;
+}
+.dev-card:hover {
+  background-color: #1b1b1b;
+}
+@media (max-width: 1000px) {
+  .dev-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.dev-info {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: start;
+  overflow: auto;
+}
+@media (max-width: 1000px) {
+  .dev-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 20px;
+  }
+}
+.dev-info .name {
+  font-size: 2em;
+  font-weight: 600;
+}
+.dev-info .youtube {
+  min-height: 42px;
+}
+.dev-info .bio {
+  overflow: auto;
+  margin-bottom: 10px;
+}
+.dev-info .youtube {
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  font-size: 1.5em;
+  color: red;
+  transition: all 0.3s ease-in-out;
+}
+.dev-info .youtube:hover {
+  transform: scale(0.9);
+}
+.dev-info .creator a {
+  color: #fc6471;
+}
+
+.cards .card {
+  background-color: rgba(15, 15, 15, 0.9);
+}
+.cards .card:hover {
+  background-color: #1b1b1b;
 }/*# sourceMappingURL=cabinet.css.map */

@@ -74,7 +74,8 @@ def user_login(request: HttpRequest):
 @login_required(login_url='/login')
 def cabinet(request: HttpRequest):
     user_data = CustomUser.objects.get(id = request.user.id)
-    context = {'user': user_data}
+    library = Library.objects.filter(user = user_data)
+    context = {'user': user_data, 'library': library}
     return render(request, 'cabinet.html', context)
     
 @login_required(login_url='/login')
@@ -161,22 +162,24 @@ def developer(request:HttpRequest):
         developer = Developer.objects.filter(creator = user_data).first()
         products = Product.objects.filter(developer = developer)
         requests = list(DeveloperRequest.objects.filter(user = user_data).values_list("developer"))
+        devusers = CustomUser.objects.filter(developer = developer)
+        requsers = DeveloperRequest.objects.filter(developer=developer)
         if not developer:
             #Если пользователь не привязан к группе
             devs = Developer.objects.all()
             if requests:
                 requests = [request[0] for request in requests]
-                context = {'user': user_data, "developer":developer, "devs":devs, "products":products, "requests": requests}
+                context = {'user': user_data, "developer":developer, "devs":devs, "products":products, "requests": requests, "devusers": devusers}
             else:
-                context = {'user': user_data, "developer":developer, "devs":devs, "products":products}        
+                context = {'user': user_data, "developer":developer, "devs":devs, "products":products, "devusers": devusers}        
             return render(request, "developer.html", context=context)   
         else:
             #Если пользователь привязан к группе
-            context = {'user': user_data, "developer":developer, "products":products}
+            context = {'user': user_data, "developer":developer, "products":products, "devusers": devusers, "requsers": requsers}
             return render(request, "developer.html", context=context)
     else:
         devs = Developer.objects.all()
-        context = {"devs":devs}
+        context = {"devs":devs, "devusers": devusers}
         return render(request, "developer.html", context=context)
 
 
@@ -216,7 +219,7 @@ def developer_games(request:HttpRequest, id):
     
     return render(request, "developer_games.html" ,context)
 
-
+@login_required(login_url="/login")
 def create_developer(request:HttpRequest):
     if request.method == 'POST':
         form = DeveloperForm(request.POST, request.FILES)
@@ -268,8 +271,12 @@ def create_product(request: HttpRequest):
 
 
 def users(request:HttpRequest, id):
-    user = get_object_or_404(CustomUser, id=id)
-    context = {"user": user}
+    if request.user.id == id:
+        return redirect("cabinet")
+    user_data = get_object_or_404(CustomUser, id=id)
+    library = Library.objects.filter(user = user_data)
+    context = {'user': user_data, 'library': library}
+        
     return render(request, "users.html", context=context)
 
 def product(request:HttpRequest, id):
@@ -357,3 +364,20 @@ def library(request: HttpRequest):
     context = {"library": library}
     
     return render(request, 'library.html', context=context)
+
+
+def change_developer(request:HttpRequest):
+    user_data = get_object_or_404(CustomUser, id=request.user.id)
+    if request.method == 'POST':
+        form = DeveloperForm(request.POST, request.FILES, instance=user_data.developer)
+        context = {"form": form, "developer": user_data.developer}
+        if form.is_valid():
+            user = CustomUser.objects.get(id = request.user.id)
+            form.save(user=user)
+            return redirect("developer")
+        else:
+            return render(request, "change_developer.html", context=context)
+    else:
+        form = DeveloperForm(instance=user_data.developer)
+        context = {"form": form, "developer": user_data.developer}
+        return render(request, "change_developer.html", context=context)
