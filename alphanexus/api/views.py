@@ -32,6 +32,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('developer','tags')
+    
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

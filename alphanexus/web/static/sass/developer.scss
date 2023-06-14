@@ -48,7 +48,7 @@
 
 .dev-list{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 20px;
     
 }
@@ -179,6 +179,7 @@
         color: set-text-color($secondary-color);
         border-radius: 10px;
         img{
+            margin-top: 10px;
             width: 250px;
             height: 250px;
             border-radius: 10px;
@@ -194,11 +195,14 @@
         }
         .email{
             font-size: map-get($map: $font-sizes, $key: "large");
-
+            padding: 0px 10px;
+            word-break: break-all;
+            text-align: center;
+            flex-grow: 1;
         }
     }
     .new{
-        height: 400px;
+        height: 420px;
         .icon-btn{
             font-size: map-get($map: $font-sizes, $key: "xxl");
             margin: 5px 20px;
@@ -207,12 +211,16 @@
                 transform: scale(0.9);   
             }
         }
-        .no:hover{
-            color: red;
+        .btns{
+            padding-bottom: 10px;
+            .no:hover{
+                color: red;
+            }
+            .yes:hover{
+                color: rgb(89, 250, 45);
+            }
         }
-        .yes:hover{
-            color: rgb(89, 250, 45);
-        }
+        
     }
     
 .change-dev{

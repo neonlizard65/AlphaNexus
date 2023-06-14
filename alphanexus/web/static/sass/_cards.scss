@@ -51,9 +51,9 @@
 
 .btns{
     @include flexCenter(row);
+    gap: 20px;
     min-height: 52px;
     .icon{
-        margin: 10px;
         font-size: map-get($font-sizes, "xxl");
 
         &-wish{
@@ -100,8 +100,20 @@
                 }
             }
         }
+
     }
     
+    .own-text{
+        width: 100%;
+        position: relative;
+        left: -20px;
+        font-size: map-get($map: $font-sizes, $key: "large");
+        margin-bottom: 20px;
+        
+        @include mobile{
+            @include flexCenter(column);
+        }
+    }
 }
 
 .sum{
@@ -110,3 +122,4 @@
     font-size: map-get($font-sizes, "xxl");
     font-weight: map-get($font-weights, "bold");
 }
+

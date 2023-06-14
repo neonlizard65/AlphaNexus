@@ -1,3 +1,4 @@
+/*282828*/
 * {
   box-sizing: border-box;
   margin: 0;
@@ -107,10 +108,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  gap: 20px;
   min-height: 52px;
 }
 .btns .icon {
-  margin: 10px;
   font-size: 2em;
 }
 .btns .icon-wish {
@@ -160,6 +161,21 @@
   transition: all 0.5s ease-in-out;
   /*Color change speed*/
   color: white;
+}
+.btns .own-text {
+  width: 100%;
+  position: relative;
+  left: -20px;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+@media (max-width: 1000px) {
+  .btns .own-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 .sum {
@@ -244,7 +260,7 @@ h1 {
 
 .dev-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 20px;
 }
 
@@ -390,6 +406,7 @@ h1 {
   border-radius: 10px;
 }
 .member-card img {
+  margin-top: 10px;
   width: 250px;
   height: 250px;
   border-radius: 10px;
@@ -405,10 +422,14 @@ h1 {
 }
 .member-card .email {
   font-size: 1.2em;
+  padding: 0px 10px;
+  word-break: break-all;
+  text-align: center;
+  flex-grow: 1;
 }
 
 .new {
-  height: 400px;
+  height: 420px;
 }
 .new .icon-btn {
   font-size: 2em;
@@ -418,10 +439,13 @@ h1 {
 .new .icon-btn:hover {
   transform: scale(0.9);
 }
-.new .no:hover {
+.new .btns {
+  padding-bottom: 10px;
+}
+.new .btns .no:hover {
   color: red;
 }
-.new .yes:hover {
+.new .btns .yes:hover {
   color: rgb(89, 250, 45);
 }
 

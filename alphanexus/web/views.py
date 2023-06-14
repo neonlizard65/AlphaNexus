@@ -179,7 +179,7 @@ def developer(request:HttpRequest):
             return render(request, "developer.html", context=context)
     else:
         devs = Developer.objects.all()
-        context = {"devs":devs, "devusers": devusers}
+        context = {"devs":devs}
         return render(request, "developer.html", context=context)
 
 
@@ -245,7 +245,7 @@ def change_product(request:HttpRequest, id):
         if request.method == 'POST':
             form = ProductForm(request.POST, request.FILES, instance=product)
             if form.is_valid():
-                form.save()
+                form.save(user.developer)
                 return redirect(request.path_info)   
             else:
                 return render(request, "change_product.html", context=context)    

@@ -62,7 +62,11 @@
             {% for user in users %}
             <div class="member-card" onclick="document.location.href='{% url 'users' user.id%}'">
                 <div class="avatar">
-                    <img src="{%get_media_prefix%}{{user.avatar}}" alt="">
+                    {% if user.avatar %}
+                    <img src="{% get_media_prefix %}{{user.avatar}}" alt="">
+                    {% else %}
+                    <img src="{% static 'res/placeholder.png' %}" alt="Аватар">
+                    {% endif %}
                 </div>
                 <div class="name">{{user.username}}</div>
                 <div class="email">{{user.email}}</div>

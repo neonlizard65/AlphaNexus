@@ -53,6 +53,8 @@ class ProductForm(forms.ModelForm):
         # do you logic here for example:
         obj.developer = developer
         
+        self.save_m2m()
+        
         if commit:
             # Saving your obj
             obj.save()
